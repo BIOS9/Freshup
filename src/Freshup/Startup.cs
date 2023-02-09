@@ -35,7 +35,7 @@ public class Startup : IHostedService
         };
         await Task.WhenAll(_runningServices.Select(s => 
             s.StartAsync(cancellationToken)));
-        Log.Information("Application started.");
+        Log.Information("Application started");
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
@@ -43,7 +43,7 @@ public class Startup : IHostedService
         Log.Information("Application stopping...");
         await Task.WhenAll(_runningServices.Select(s => 
             s.StopAsync(cancellationToken)));
-        Log.Information("Application stopped.");
+        Log.Information("Application stopped");
     }
         
     /// <summary>
