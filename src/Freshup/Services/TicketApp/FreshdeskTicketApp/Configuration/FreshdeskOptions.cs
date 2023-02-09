@@ -6,4 +6,5 @@ public class FreshdeskOptions
 
     public string Domain { get; set; } = string.Empty;
     public string ApiKey { get; set; } = string.Empty;
+    public string TicketPollInterval { get; set; } = "10s";
 }
