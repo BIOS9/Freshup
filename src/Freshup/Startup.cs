@@ -1,4 +1,5 @@
-﻿using Freshup.Services.FreshdeskTicketApp.Helpers;
+﻿using Freshup.Services;
+using Freshup.Services.FreshdeskTicketApp.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,25 +21,29 @@ public class Startup : IHostedService
             .CreateLogger();
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        Log.Information("Application started.");
-
+        Log.Information("Application starting...");
         // Set up services for dependency injection.
         var services = new ServiceCollection();
         ConfigureServices(services);
         var provider = services.BuildServiceProvider();
-            
-        _runningServices = provider.GetServices<IHostedService>();
-        return Task.WhenAll(_runningServices.Select(s => 
+
+        _runningServices = new[]
+        {
+            provider.GetRequiredService<ITicketApp>()
+        };
+        await Task.WhenAll(_runningServices.Select(s => 
             s.StartAsync(cancellationToken)));
+        Log.Information("Application started.");
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public async Task StopAsync(CancellationToken cancellationToken)
     {
-        Log.Information("Application stopping.");
-        return Task.WhenAll(_runningServices.Select(s => 
+        Log.Information("Application stopping...");
+        await Task.WhenAll(_runningServices.Select(s => 
             s.StopAsync(cancellationToken)));
+        Log.Information("Application stopped.");
     }
         
     /// <summary>

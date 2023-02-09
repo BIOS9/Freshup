@@ -1,6 +1,8 @@
-﻿namespace Freshup.Services;
+﻿using Microsoft.Extensions.Hosting;
 
-public interface ITicketApp
+namespace Freshup.Services;
+
+public interface ITicketApp : IHostedService
 {
     
 }
