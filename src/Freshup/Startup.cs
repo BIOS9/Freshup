@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Freshup.Services.FreshdeskTicketApp.Helpers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -46,5 +47,6 @@ public class Startup : IHostedService
     private void ConfigureServices(IServiceCollection services)
     {
         services.AddLogging(x => x.AddSerilog());
+        services.AddFreshdesk(_configuration);
     }
 }
