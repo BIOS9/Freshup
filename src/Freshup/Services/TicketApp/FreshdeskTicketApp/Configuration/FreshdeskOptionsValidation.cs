@@ -6,9 +6,14 @@ public class FreshdeskOptionsValidation : IValidateOptions<FreshdeskOptions>
 {
     public ValidateOptionsResult Validate(string name, FreshdeskOptions options)
     {
+        if (string.IsNullOrWhiteSpace(options.Domain))
+        {
+            return ValidateOptionsResult.Fail("Missing Freshdesk domain");
+        }
+        
         if (string.IsNullOrWhiteSpace(options.ApiKey))
         {
-            return ValidateOptionsResult.Fail("Missing API key.");
+            return ValidateOptionsResult.Fail("Missing API key");
         }
 
         return ValidateOptionsResult.Success;
