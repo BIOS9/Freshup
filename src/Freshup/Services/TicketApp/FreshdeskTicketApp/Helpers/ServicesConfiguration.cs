@@ -1,4 +1,5 @@
 ﻿using Freshup.Services.FreshdeskTicketApp.Configuration;
+using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

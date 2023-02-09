@@ -10,7 +10,7 @@ namespace Freshup;
 public class Startup : IHostedService
 {
     private readonly IConfiguration _configuration;
-    private IEnumerable<IHostedService> _runningServices;
+    private IEnumerable<IHostedService> _runningServices = Enumerable.Empty<IHostedService>();
         
     public Startup(IConfiguration configuration)
     {

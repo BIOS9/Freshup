@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Freshup.Services.FreshdeskTicketApp.Configuration;
+using Microsoft.Extensions.Options;
 using TimeSpanParserUtil;
 
-namespace Freshup.Services.FreshdeskTicketApp.Configuration;
+namespace Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
 
 public class FreshdeskOptionsValidation : IValidateOptions<FreshdeskOptions>
 {
     private static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromMilliseconds(1500);
     
-    public ValidateOptionsResult Validate(string name, FreshdeskOptions options)
+    public ValidateOptionsResult Validate(string? name, FreshdeskOptions options)
     {
         if (string.IsNullOrWhiteSpace(options.Domain))
         {
