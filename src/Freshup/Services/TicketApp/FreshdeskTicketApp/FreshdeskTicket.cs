@@ -1,12 +1,14 @@
 ﻿using FreshdeskApi.Client.Tickets.Models;
+using Freshup.Services.TicketApp;
 
 namespace Freshup.Services.FreshdeskTicketApp;
 
-public class HashableTicket
+public class FreshdeskTicket : ITicket
 {
     public Ticket Ticket { get; }
+    public string Subject => Ticket.Subject;
 
-    public HashableTicket(Ticket ticket)
+    public FreshdeskTicket(Ticket ticket)
     {
         Ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));
     }
@@ -15,7 +17,7 @@ public class HashableTicket
     {
         if (obj == null) return false;
         if (obj.GetType() != GetType()) return false;
-        return ((HashableTicket)obj).Ticket.Id == Ticket.Id;
+        return ((FreshdeskTicket)obj).Ticket.Id == Ticket.Id;
     }
 
     public override int GetHashCode()
