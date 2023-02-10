@@ -1,5 +1,7 @@
 ﻿using Freshup.Services;
 using Freshup.Services.FreshdeskTicketApp.Helpers;
+using Freshup.Services.Testing;
+using Freshup.Services.Testing.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,9 +31,10 @@ public class Startup : IHostedService
         ConfigureServices(services);
         var provider = services.BuildServiceProvider();
 
-        _runningServices = new[]
+        _runningServices = new IHostedService[]
         {
-            provider.GetRequiredService<ITicketApp>()
+            provider.GetRequiredService<ITicketApp>(),
+            provider.GetRequiredService<Testing>()
         };
         await Task.WhenAll(_runningServices.Select(s => 
             s.StartAsync(cancellationToken)));
@@ -53,5 +56,6 @@ public class Startup : IHostedService
     {
         services.AddLogging(x => x.AddSerilog());
         services.AddFreshdesk(_configuration);
+        services.AddTesting();
     }
 }
