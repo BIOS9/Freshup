@@ -1,4 +1,5 @@
-﻿using Freshup.Services.FreshdeskTicketApp.Configuration;
+﻿using System.Text.RegularExpressions;
+using Freshup.Services.FreshdeskTicketApp.Configuration;
 using Microsoft.Extensions.Options;
 using TimeSpanParserUtil;
 
@@ -13,6 +14,11 @@ public class FreshdeskOptionsValidation : IValidateOptions<FreshdeskOptions>
         if (string.IsNullOrWhiteSpace(options.Domain))
         {
             return ValidateOptionsResult.Fail("Missing Freshdesk domain");
+        }
+        
+        if (Regex.IsMatch(options.Domain, @"/^https:\/\/.+"))
+        {
+            return ValidateOptionsResult.Fail("Freshdesk domain invalid. Ensure it starts with https://");
         }
         
         if (string.IsNullOrWhiteSpace(options.ApiKey))
