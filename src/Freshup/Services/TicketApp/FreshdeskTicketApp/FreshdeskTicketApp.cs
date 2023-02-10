@@ -90,7 +90,13 @@ public class FreshdeskTicketApp : ITicketApp
                 _logger.LogError(ex, "Error occured in ticket polling loop {Message}", ex.Message);
                 await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
             }
-            await Task.Delay(TimeSpanParser.Parse(_options.TicketPollInterval));
+            /* A note on this delay:
+             * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
+             * since it waits for the download and then waits for another interval.
+             *
+             * This can be changed later if needed.
+             */
+            await Task.Delay(TimeSpanParser.Parse(_options.TicketPollInterval), cancellationToken);
         }
     }
 }
