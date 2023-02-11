@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Media;
 
 namespace Freshup.Services.Gui
 {
@@ -15,6 +7,25 @@ namespace Freshup.Services.Gui
         public NotificationForm()
         {
             InitializeComponent();
+        }
+
+        public void notify()
+        {
+            Show();
+
+            using SoundPlayer soundPlayer = new SoundPlayer(Resources.DefaultNotificationSound);
+            soundPlayer.Play();
+        }
+
+        private void NotificationForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NotificationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

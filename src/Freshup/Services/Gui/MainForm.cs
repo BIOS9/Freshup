@@ -20,6 +20,6 @@ public partial class MainForm : Form
 
     private void testNotificationButton_Click(object sender, EventArgs e)
     {
-
+        _notificationForm.notify();
     }
 }
