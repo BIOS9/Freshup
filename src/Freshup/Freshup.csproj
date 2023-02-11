@@ -7,6 +7,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
       <UserSecretsId>17299cd6-0fa3-481a-ba06-0b73d6f2ad94</UserSecretsId>
+      <ApplicationIcon>Services\Gui\Resources\AppleCan.ico</ApplicationIcon>
   </PropertyGroup>
 
     <ItemGroup>
@@ -16,6 +17,10 @@
       <EmbeddedResource Remove="Resources\**" />
       <None Remove="Properties\**" />
       <None Remove="Resources\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Services\Gui\Resources\AppleCan.ico" />
     </ItemGroup>
 
     <ItemGroup>

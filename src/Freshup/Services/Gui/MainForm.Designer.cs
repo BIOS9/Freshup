@@ -31,18 +31,21 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.testNotificationButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.enableNotificationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.testNotificationButton = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -60,6 +63,48 @@ partial class MainForm
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ticket Notifications";
+            // 
+            // testNotificationButton
+            // 
+            this.testNotificationButton.Location = new System.Drawing.Point(6, 180);
+            this.testNotificationButton.Name = "testNotificationButton";
+            this.testNotificationButton.Size = new System.Drawing.Size(111, 23);
+            this.testNotificationButton.TabIndex = 7;
+            this.testNotificationButton.Text = "Test Notification";
+            this.testNotificationButton.UseVisualStyleBackColor = true;
+            this.testNotificationButton.Click += new System.EventHandler(this.testNotificationButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 134);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(145, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Default notification sound";
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(140, 89);
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(199, 45);
+            this.trackBar2.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 89);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 15);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Ticket polling interval";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(140, 47);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(199, 45);
+            this.trackBar1.TabIndex = 3;
             // 
             // label1
             // 
@@ -80,38 +125,6 @@ partial class MainForm
             this.enableNotificationsCheckBox.Text = "Enable new ticket notifications";
             this.enableNotificationsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(140, 47);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(199, 45);
-            this.trackBar1.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 89);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Ticket polling interval";
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Location = new System.Drawing.Point(140, 89);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(199, 45);
-            this.trackBar2.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 134);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 15);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Default notification sound";
-            // 
             // groupBox2
             // 
             this.groupBox2.Location = new System.Drawing.Point(432, 16);
@@ -121,15 +134,11 @@ partial class MainForm
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ticket Snoozing";
             // 
-            // testNotificationButton
+            // notifyIcon1
             // 
-            this.testNotificationButton.Location = new System.Drawing.Point(6, 180);
-            this.testNotificationButton.Name = "testNotificationButton";
-            this.testNotificationButton.Size = new System.Drawing.Size(111, 23);
-            this.testNotificationButton.TabIndex = 7;
-            this.testNotificationButton.Text = "Test Notification";
-            this.testNotificationButton.UseVisualStyleBackColor = true;
-            this.testNotificationButton.Click += new System.EventHandler(this.testNotificationButton_Click);
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Freshup";
+            this.notifyIcon1.Visible = true;
             // 
             // MainForm
             // 
@@ -138,12 +147,13 @@ partial class MainForm
             this.ClientSize = new System.Drawing.Size(834, 332);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Freshup";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -159,4 +169,5 @@ partial class MainForm
     private TrackBar trackBar1;
     private GroupBox groupBox2;
     private Button testNotificationButton;
+    private NotifyIcon notifyIcon1;
 }
