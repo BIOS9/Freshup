@@ -6,7 +6,12 @@ namespace Freshup.Services.FreshdeskTicketApp;
 public class FreshdeskTicket : ITicket
 {
     public Ticket Ticket { get; }
-    public string Subject => Ticket.Subject;
+    public string? Subject => Ticket?.Subject;
+    public string? Description => Ticket?.Description;
+    public string? SenderEmail => Ticket?.Requester?.Email;
+    public string? SenderName=> Ticket?.Requester?.Name;
+    public Uri? Link => null;
+
 
     public FreshdeskTicket(Ticket ticket)
     {
