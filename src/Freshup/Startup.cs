@@ -1,5 +1,6 @@
 ﻿using Freshup.Services;
 using Freshup.Services.FreshdeskTicketApp.Helpers;
+using Freshup.Services.Gui.Helpers;
 using Freshup.Services.Testing;
 using Freshup.Services.Testing.Helpers;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,7 @@ public class Startup : IHostedService
         };
         await Task.WhenAll(_runningServices.Select(s => 
             s.StartAsync(cancellationToken)));
+        Application.Run(provider.GetRequiredService<MainForm>());
         Log.Information("Application started");
     }
 
@@ -57,5 +59,6 @@ public class Startup : IHostedService
         services.AddLogging(x => x.AddSerilog());
         services.AddFreshdesk(_configuration);
         services.AddTesting();
+        services.AddGui();
     }
 }

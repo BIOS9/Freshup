@@ -6,8 +6,10 @@ namespace Freshup;
 
 public class Program
 {
-    public static void Main(string[] args)
+    [STAThread]
+    static void Main(string[] args)
     {
+        ApplicationConfiguration.Initialize();
         CreateHostBuilder(args).Build().Run();
     }
 
