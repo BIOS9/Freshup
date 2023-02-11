@@ -33,5 +33,10 @@ namespace Freshup.Services.Gui
         {
             Location = notificationScreen.WorkingArea.Location + notificationScreen.WorkingArea.Size - Size;
         }
+
+        private void closeButton1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
