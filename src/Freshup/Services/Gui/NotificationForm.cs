@@ -11,6 +11,7 @@ namespace Freshup.Services.Gui
 
         public void notify()
         {
+            SetLocation(Screen.PrimaryScreen);
             Show();
 
             using SoundPlayer soundPlayer = new SoundPlayer(Resources.DefaultNotificationSound);
@@ -26,6 +27,11 @@ namespace Freshup.Services.Gui
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void SetLocation(Screen notificationScreen)
+        {
+            Location = notificationScreen.WorkingArea.Location + notificationScreen.WorkingArea.Size - Size;
         }
     }
 }
