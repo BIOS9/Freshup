@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.closeButton1 = new Freshup.Services.Gui.CloseButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ticketListBox = new System.Windows.Forms.ListBox();
+            this.ticketPanel = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -71,29 +71,12 @@
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
-            // ticketListBox
+            // ticketPanel
             // 
-            this.ticketListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ticketListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ticketListBox.FormattingEnabled = true;
-            this.ticketListBox.ItemHeight = 15;
-            this.ticketListBox.Items.AddRange(new object[] {
-            "Bobby: My computer broke!",
-            "Mary: Printer is out of paper :(",
-            "Richard: New investment opportunity...",
-            "Billy: Hello",
-            "Lorem",
-            "Ipsum",
-            "Lorem",
-            "Ipsum",
-            "Lorem",
-            "Ipsum"});
-            this.ticketListBox.Location = new System.Drawing.Point(147, 83);
-            this.ticketListBox.Name = "ticketListBox";
-            this.ticketListBox.Size = new System.Drawing.Size(418, 90);
-            this.ticketListBox.TabIndex = 5;
+            this.ticketPanel.Location = new System.Drawing.Point(153, 80);
+            this.ticketPanel.Name = "ticketPanel";
+            this.ticketPanel.Size = new System.Drawing.Size(412, 98);
+            this.ticketPanel.TabIndex = 4;
             // 
             // NotificationForm
             // 
@@ -101,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(566, 223);
-            this.Controls.Add(this.ticketListBox);
+            this.Controls.Add(this.ticketPanel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.closeButton1);
@@ -126,6 +109,6 @@
         private PictureBox pictureBox1;
         private CloseButton closeButton1;
         private PictureBox pictureBox2;
-        private ListBox ticketListBox;
+        private FlowLayoutPanel ticketPanel;
     }
 }

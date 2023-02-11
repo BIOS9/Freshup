@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using Freshup.Services.TicketApp;
+using System.Media;
 
 namespace Freshup.Services.Gui
 {
@@ -9,10 +10,12 @@ namespace Freshup.Services.Gui
             InitializeComponent();
         }
 
-        public void notify()
+        public void notify(ITicket ticket)
         {
             SetLocation(Screen.PrimaryScreen);
             Show();
+
+            ticketPanel.Controls.Add(new TicketSummary(ticket));
 
             using SoundPlayer soundPlayer = new SoundPlayer(Resources.DefaultNotificationSound);
             soundPlayer.Play();
