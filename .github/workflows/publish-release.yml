@@ -29,7 +29,7 @@ jobs:
     - name: Publish project
       run: dotnet publish src/Freshup -c Release --no-build -o Publish
     
-    - name: Install Squirrel
+    - name: Download Squirrel tools
       uses: robinraju/release-downloader@v1.7
       with:
         repository: "clowd/Clowd.Squirrel"
@@ -37,8 +37,11 @@ jobs:
         fileName: "SquirrelTools-*.zip"
         out-file-path: "."
 
+    - name: Extract Squirrel tools
+      run: 7z x -oSquirrelTools SquirrelTools-*.zip
+
     - name: Create Squirrel package
-      run: Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$env:GITHUB_REF_NAME" --packDirectory Publish
+      run: SquirrelTools/Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$env:GITHUB_REF_NAME" --packDirectory Publish
 
     - name: Archive installer
       uses: actions/upload-artifact@v3
