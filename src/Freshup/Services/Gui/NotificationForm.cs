@@ -1,4 +1,5 @@
-﻿using Freshup.Services.TicketApp;
+﻿using Freshup.Services.Gui.Controls;
+using Freshup.Services.TicketApp;
 using System.Media;
 
 namespace Freshup.Services.Gui
@@ -40,6 +41,17 @@ namespace Freshup.Services.Gui
         private void closeButton1_Click(object sender, EventArgs e)
         {
             Close();
+            ticketPanel.Controls.Clear();
+        }
+
+        private void NotificationForm_Move(object sender, EventArgs e)
+        {
+            SetLocation(Screen.PrimaryScreen);
+        }
+
+        private void NotificationForm_Resize(object sender, EventArgs e)
+        {
+            SetLocation(Screen.PrimaryScreen);
         }
     }
 }
