@@ -38,6 +38,7 @@ jobs:
         repo: clowd/Clowd.Squirrel
         urlTemplate: "https://github.com/clowd/Clowd.Squirrel/releases/download/{{version}}/SquirrelTools-{{version}}.zip"
         version: latest
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Squirrel package
       run: Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$GITHUB_REF_NAME" --packDirectory Publish
