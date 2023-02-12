@@ -1,6 +1,6 @@
 name: Publish Squirrel Release
 
-on:  
+on:
   push:
     tags:
       - '*.*.*'
@@ -28,19 +28,20 @@ jobs:
 
     - name: Publish project
       run: dotnet publish src/Freshup -c Release --no-build -o Publish
-      
-    - name: engineerd/configurator
+
+    - name: Install Squirrel
       uses: engineerd/configurator@v0.0.9
       with:
         name: Squirrel.exe
         pathInArchive: Squirrel.exe
         fromGitHubReleases: true
         repo: clowd/Clowd.Squirrel
+        urlTemplate: "https://github.com/clowd/Clowd.Squirrel/releases/download/{{version}}/SquirrelTools-{{version}}.zip"
         version: latest
-        
+
     - name: Create Squirrel package
       run: Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$GITHUB_REF_NAME" --packDirectory Publish
-      
+
     - name: Archive installer
       uses: actions/upload-artifact@v3
       with:
