@@ -24,7 +24,7 @@ jobs:
       run: dotnet restore src/Freshup
 
     - name: Build project
-      run: RUN dotnet build src/Freshup -c Release
+      run: dotnet build src/Freshup -c Release
  
     - name: Execute unit tests
       run: dotnet test src/Freshup
