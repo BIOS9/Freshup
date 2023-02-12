@@ -19,11 +19,13 @@ public class Program
 
     private static void CheckUpdates()
     {
+        Console.WriteLine("Checking for updates.");
         SquirrelAwareApp.HandleEvents(
             onInitialInstall: OnAppInstall,
             onAppUninstall: OnAppUninstall,
             onEveryRun: OnAppRun);
 
+        Console.WriteLine("Handled events.");
         using (var mgr = new UpdateManager(new GithubSource("https://github.com/BIOS9/Freshup", string.Empty, false)))
         {
             if (mgr.IsInstalledApp)
@@ -32,8 +34,17 @@ public class Program
 
                 if (newVersion != null)
                 {
+                    Console.WriteLine("Updated");
                     UpdateManager.RestartApp();
                 }
+                else
+                {
+                    Console.WriteLine("Not updated");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Not installed app");
             }
         }
     }
