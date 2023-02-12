@@ -43,8 +43,8 @@ jobs:
     - name: Create Squirrel package
       run: SquirrelTools/Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$env:GITHUB_REF_NAME" --packDirectory Publish
 
-    - name: Archive installer
-      uses: actions/upload-artifact@v3
+    - name: Create Release
+      uses: ncipollo/release-action@v1.12.0
       with:
-        name: FreshupSetup
-        path: Releases/FreshupSetup.exe
+        artifactErrorsFailBuild: true
+        artifacts: "Releases/*"
