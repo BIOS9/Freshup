@@ -1,8 +1,4 @@
-﻿using Freshup.Services.FreshdeskTicketApp;
-using Freshup.Services.TicketApp;
-using Microsoft.Extensions.Hosting;
-
-namespace Freshup.Services;
+﻿namespace Freshup.Services.TicketApp;
 
 public interface ITicketApp
 {

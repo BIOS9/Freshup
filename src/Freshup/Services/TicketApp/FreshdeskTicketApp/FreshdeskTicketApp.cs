@@ -1,21 +1,20 @@
 ﻿using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
-using Freshup.Services.FreshdeskTicketApp.Configuration;
-using Freshup.Services.TicketApp;
+using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TimeSpanParserUtil;
 
-namespace Freshup.Services.FreshdeskTicketApp;
+namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
     private readonly FreshdeskOptions _options;
     private readonly ILogger<FreshdeskTicketApp> _logger;
     private readonly FreshdeskClient _freshdeskClient;
-    private readonly CancellationTokenSource _pollingTokenSource = new ();
-    private HashSet<FreshdeskTicket> _tickets = new ();
-    
+    private readonly CancellationTokenSource _pollingTokenSource = new();
+    private HashSet<FreshdeskTicket> _tickets = new();
+
     public delegate void TicketsUpdatedEventHandler(object sender, IEnumerable<FreshdeskTicket> tickets);
     public event TicketsUpdatedEventHandler TicketsUpdated;
 
@@ -25,7 +24,7 @@ public class FreshdeskTicketApp : ITicketApp
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        
+
         var freshdeskHttpClient = FreshdeskHttpClient.Create(_options.Domain, _options.ApiKey);
         _freshdeskClient = FreshdeskClient.Create(freshdeskHttpClient);
     }
@@ -43,7 +42,7 @@ public class FreshdeskTicketApp : ITicketApp
 
     public async Task<IEnumerable<ITicket>> GetTicketsAsync()
     {
-        TaskCompletionSource<IEnumerable<FreshdeskTicket>> tcs = new ();
+        TaskCompletionSource<IEnumerable<FreshdeskTicket>> tcs = new();
         void Handler(object s, IEnumerable<FreshdeskTicket> t) => tcs.SetResult(t);
         TicketsUpdated += Handler;
         var tickets = await tcs.Task;
@@ -53,19 +52,19 @@ public class FreshdeskTicketApp : ITicketApp
 
     private async void StartPolling(CancellationToken cancellationToken)
     {
-        #if !DEBUG
+#if !DEBUG
         await Task.Delay(TimeSpan.FromSeconds(30));
-        #endif
+#endif
 
         bool firstRun = true;
-        
+
         while (!cancellationToken.IsCancellationRequested)
         {
             try
             {
                 var existingTickets = _tickets; // Defensive reference
                 var newTickets = new HashSet<FreshdeskTicket>();
-                
+
                 await foreach (var ticket in _freshdeskClient.Tickets.ListAllTicketsAsync(
                                    new ListAllTicketsRequest(),
                                    new PaginationConfiguration(),

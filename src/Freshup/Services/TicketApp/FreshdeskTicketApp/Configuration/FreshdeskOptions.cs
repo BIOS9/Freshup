@@ -1,4 +1,4 @@
-﻿namespace Freshup.Services.FreshdeskTicketApp.Configuration;
+﻿namespace Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
 
 public class FreshdeskOptions
 {
