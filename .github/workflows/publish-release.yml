@@ -3,7 +3,7 @@ name: Publish Squirrel Release
 on:  
   push:
     tags:
-      - 'v*.*.*'
+      - '*.*.*'
 
 jobs:
   build:
@@ -20,14 +20,29 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Restore project
-      run: dotnet restore src/Freshup
-
     - name: Build project
       run: dotnet build src/Freshup -c Release
  
     - name: Execute unit tests
-      run: dotnet test src/Freshup
+      run: dotnet test src/Freshup -c Release --no-build
 
     - name: Publish project
-      run: dotnet publish src/Freshup -c Release -o Publish
+      run: dotnet publish src/Freshup -c Release --no-build -o Publish
+      
+    - name: engineerd/configurator
+      uses: engineerd/configurator@v0.0.9
+      with:
+        name: Squirrel.exe
+        pathInArchive: Squirrel.exe
+        fromGitHubReleases: true
+        repo: clowd/Clowd.Squirrel
+        version: latest
+        
+    - name: Create Squirrel package
+      run: Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$GITHUB_REF_NAME" --packDirectory Publish
+      
+    - name: Archive installer
+      uses: actions/upload-artifact@v3
+      with:
+        name: FreshupSetup
+        path: Releases/FreshupSetup.exe
