@@ -24,7 +24,7 @@ public class Program
             onAppUninstall: OnAppUninstall,
             onEveryRun: OnAppRun);
 
-        using (var mgr = new UpdateManager(new GithubSource("https://github.com/BIOS9/Freshdesk", string.Empty, false)))
+        using (var mgr = new UpdateManager(new GithubSource("https://github.com/BIOS9/Freshup", string.Empty, false)))
         {
             if (mgr.IsInstalledApp)
             {
