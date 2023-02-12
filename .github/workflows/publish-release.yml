@@ -43,8 +43,7 @@ jobs:
     - name: Create Squirrel package
       run: SquirrelTools/Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$env:GITHUB_REF_NAME" --packDirectory Publish
 
-    - name: Create Release
-      uses: ncipollo/release-action@v1.12.0
+    - name: GH Release
+      uses: softprops/action-gh-release@v0.1.15
       with:
-        artifactErrorsFailBuild: true
-        artifacts: "Releases/*"
+        files: "Releases/*"
