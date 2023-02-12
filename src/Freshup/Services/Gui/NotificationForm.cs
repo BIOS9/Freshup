@@ -20,6 +20,7 @@ namespace Freshup.Services.Gui
             _allowShow = true;
             SetLocation(Screen.PrimaryScreen);
             Show();
+            WindowState = FormWindowState.Normal;
 
             ticketPanel.Controls.Add(new TicketSummary(ticket));
 

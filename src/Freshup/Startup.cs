@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Squirrel;
+using Squirrel.Sources;
 
 namespace Freshup;
 
@@ -25,6 +27,7 @@ public class Startup
 
     public void Run()
     {
+        CheckUpdates();
         Log.Information("Application starting...");
         // Set up services for dependency injection.
         var services = new ServiceCollection();
@@ -35,7 +38,44 @@ public class Startup
         provider.GetRequiredService<Gui>().Run();
         Log.Information("Application started");
     }
-        
+
+    private async void CheckUpdates()
+    {
+        Log.Information("Checking for updates.");
+        SquirrelAwareApp.HandleEvents(
+            onInitialInstall: OnAppInstall,
+            onAppUninstall: OnAppUninstall,
+            onEveryRun: OnAppRun);
+
+        using (var mgr = new UpdateManager(new GithubSource("https://github.com/BIOS9/Freshdesk", string.Empty, false)))
+        {
+            if (mgr.IsInstalledApp)
+            {
+                var newVersion = await mgr.UpdateApp();
+
+                if (newVersion != null)
+                {
+                    UpdateManager.RestartApp();
+                }
+            }
+        }
+    }
+
+    private static void OnAppInstall(SemanticVersion version, IAppTools tools)
+    {
+        tools.CreateShortcutForThisExe(ShortcutLocation.StartMenu);
+    }
+
+    private static void OnAppUninstall(SemanticVersion version, IAppTools tools)
+    {
+        tools.RemoveShortcutForThisExe(ShortcutLocation.StartMenu);
+    }
+
+    private static void OnAppRun(SemanticVersion version, IAppTools tools, bool firstRun)
+    {
+        tools.SetProcessAppUserModelId();
+    }
+
     /// <summary>
     /// Configures services to be dependency injected.
     /// </summary>

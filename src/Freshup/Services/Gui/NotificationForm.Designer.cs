@@ -108,6 +108,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "NotificationForm";
             this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NotificationForm_FormClosing);
             this.Load += new System.EventHandler(this.NotificationForm_Load);
             this.Move += new System.EventHandler(this.NotificationForm_Move);

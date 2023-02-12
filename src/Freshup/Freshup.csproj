@@ -8,6 +8,7 @@
         <Nullable>enable</Nullable>
       <UserSecretsId>17299cd6-0fa3-481a-ba06-0b73d6f2ad94</UserSecretsId>
       <ApplicationIcon>Services\Gui\Resources\AppleCan.ico</ApplicationIcon>
+      <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
     <ItemGroup>
@@ -24,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
       <PackageReference Include="Freshdesk.Api" Version="0.13.2" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
