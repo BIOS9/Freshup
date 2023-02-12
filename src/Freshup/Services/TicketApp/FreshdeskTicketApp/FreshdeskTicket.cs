@@ -1,7 +1,7 @@
 ﻿using FreshdeskApi.Client.Tickets.Models;
 using Freshup.Services.TicketApp;
 
-namespace Freshup.Services.FreshdeskTicketApp;
+namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicket : ITicket
 {
@@ -9,7 +9,7 @@ public class FreshdeskTicket : ITicket
     public string? Subject => Ticket?.Subject;
     public string? Description => Ticket?.Description;
     public string? SenderEmail => Ticket?.Requester?.Email;
-    public string? SenderName=> Ticket?.Requester?.Name;
+    public string? SenderName => Ticket?.Requester?.Name;
     public Uri? Link => null;
 
 

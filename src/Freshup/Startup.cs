@@ -1,11 +1,9 @@
-using Freshup.Services;
-using Freshup.Services.FreshdeskTicketApp.Helpers;
-using Freshup.Services.Gui;
+﻿using Freshup.Services.Gui;
 using Freshup.Services.Gui.Helpers;
-using Freshup.Services.Testing;
+using Freshup.Services.TicketApp;
+using Freshup.Services.TicketApp.FreshdeskTicketApp.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using Squirrel;
 using Squirrel.Sources;
@@ -27,7 +25,8 @@ public class Startup
 
     public void Run()
     {
-        Log.Information("Update test 2.");
+        Log.Information("Checking for updates...");
+        CheckUpdates();
         Log.Information("Application starting...");
         // Set up services for dependency injection.
         var services = new ServiceCollection();

@@ -1,10 +1,9 @@
-﻿using Freshup.Services.FreshdeskTicketApp.Configuration;
-using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
+﻿using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Freshup.Services.FreshdeskTicketApp.Helpers;
+namespace Freshup.Services.TicketApp.FreshdeskTicketApp.Helpers;
 
 public static class ServicesConfiguration
 {

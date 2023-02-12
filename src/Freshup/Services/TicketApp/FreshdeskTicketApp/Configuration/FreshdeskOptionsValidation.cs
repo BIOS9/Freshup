@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using Freshup.Services.FreshdeskTicketApp.Configuration;
 using Microsoft.Extensions.Options;
 using TimeSpanParserUtil;
 
