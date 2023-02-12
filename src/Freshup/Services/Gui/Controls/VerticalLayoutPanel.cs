@@ -15,6 +15,12 @@ namespace Freshup.Services.Gui.Controls
         public VerticalLayoutPanel()
         {
             InitializeComponent();
+
+            // Disable horizontal scroll
+            HorizontalScroll.Maximum = 0;
+            AutoScroll = false; // Winforms is weird yo
+            VerticalScroll.Visible = false;
+            AutoScroll = true;
         }
 
         private void organise()
