@@ -10,7 +10,8 @@ public class Program
     static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
-        CreateHostBuilder(args).Build().Run();
+        IHost host = CreateHostBuilder(args).Build();
+        host.Services.GetRequiredService<Startup>().Run();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args)
@@ -20,7 +21,7 @@ public class Program
         // directly since some services require setup with things like configuration options.
         return Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
-                services.AddHostedService<Startup>())
+                services.AddSingleton<Startup>())
             .ConfigureAppConfiguration((context, builder) =>
                 builder.AddUserSecrets<Program>());
     }

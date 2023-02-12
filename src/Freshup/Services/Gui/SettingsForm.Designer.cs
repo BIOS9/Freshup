@@ -2,7 +2,7 @@
 
 namespace Freshup.Services.Testing;
 
-partial class MainForm
+partial class SettingsForm
 {
     /// <summary>
     /// Required designer variable.
@@ -31,8 +31,7 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.testNotificationButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,7 +41,6 @@ partial class MainForm
             this.label1 = new System.Windows.Forms.Label();
             this.enableNotificationsCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -134,13 +132,7 @@ partial class MainForm
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ticket Snoozing";
             // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Freshup";
-            this.notifyIcon1.Visible = true;
-            // 
-            // MainForm
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -148,8 +140,9 @@ partial class MainForm
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MainForm";
+            this.Name = "SettingsForm";
             this.Text = "Freshup";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
@@ -169,5 +162,4 @@ partial class MainForm
     private TrackBar trackBar1;
     private GroupBox groupBox2;
     private Button testNotificationButton;
-    private NotifyIcon notifyIcon1;
 }

@@ -18,7 +18,9 @@ public class FreshdeskTicketApp : ITicketApp
     
     public delegate void TicketsUpdatedEventHandler(object sender, IEnumerable<FreshdeskTicket> tickets);
     public event TicketsUpdatedEventHandler TicketsUpdated;
-    
+
+    public event ITicketApp.NewTicketEventHandler NewTicket;
+
     public FreshdeskTicketApp(IOptions<FreshdeskOptions> options, ILogger<FreshdeskTicketApp> logger)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
@@ -28,17 +30,15 @@ public class FreshdeskTicketApp : ITicketApp
         _freshdeskClient = FreshdeskClient.Create(freshdeskHttpClient);
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public void Start()
     {
         StartPolling(_pollingTokenSource.Token);
         _logger.LogInformation("Freshdesk monitoring started");
-        return Task.CompletedTask;
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public void Stop()
     {
         _pollingTokenSource.Cancel();
-        return Task.CompletedTask;
     }
 
     public async Task<IEnumerable<ITicket>> GetTicketsAsync()
@@ -75,7 +75,7 @@ public class FreshdeskTicketApp : ITicketApp
 
                     if (!firstRun && !existingTickets.Contains(hashTicket))
                     {
-                        _logger.LogInformation("NEW TICKET! {Subject}", ticket.Subject);
+                        NewTicket?.Invoke(this, hashTicket);
                     }
 
                     newTickets.Add(hashTicket);

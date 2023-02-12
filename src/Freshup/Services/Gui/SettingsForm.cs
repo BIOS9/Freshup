@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Freshup.Services.Testing;
 
-public partial class MainForm : Form
+public partial class SettingsForm : Form
 {
-    private readonly ILogger<MainForm> _logger;
+    private readonly ILogger<SettingsForm> _logger;
     private readonly ITicketApp _ticketApp;
     private readonly NotificationForm _notificationForm;
 
-    public MainForm(ILogger<MainForm> logger, ITicketApp ticketApp)
+    public SettingsForm(ILogger<SettingsForm> logger, ITicketApp ticketApp)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _ticketApp = ticketApp ?? throw new ArgumentNullException(nameof(ticketApp));
@@ -21,7 +21,7 @@ public partial class MainForm : Form
 
     private void testNotificationButton_Click(object sender, EventArgs e)
     {
-        _notificationForm.notify(new TestTicket());
+        _notificationForm.Notify(new TestTicket());
     }
 
     private class TestTicket : ITicket
@@ -31,5 +31,10 @@ public partial class MainForm : Form
         public string? SenderEmail => "bobby.fischer@email.com";
         public string? SenderName => "Bobby Fischer";
         public Uri? Link => null;
+    }
+
+    private void SettingsForm_Load(object sender, EventArgs e)
+    {
+
     }
 }

@@ -7,6 +7,6 @@ public static class ServicesConfiguration
 {
     public static void AddGui(this IServiceCollection services)
     {
-        services.AddSingleton<MainForm>();
+        services.AddSingleton<Gui>();
     }
 }

@@ -6,14 +6,18 @@ namespace Freshup.Services.Gui
 {
     public partial class NotificationForm : Form
     {
+        private bool _allowShow = false;
+
+
         public NotificationForm()
         {
             InitializeComponent();
             ticketPanel.ControlRemoved += TicketPanel_ControlRemoved;
         }
 
-        public void notify(ITicket ticket)
+        public void Notify(ITicket ticket)
         {
+            _allowShow = true;
             SetLocation(Screen.PrimaryScreen);
             Show();
 
@@ -31,8 +35,14 @@ namespace Freshup.Services.Gui
         #region EVENT_HANDLERS
 
         private void NotificationForm_Load(object sender, EventArgs e)
-        {
+        { 
 
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if(!_allowShow) this.Hide();
         }
 
         private void NotificationForm_FormClosing(object sender, FormClosingEventArgs e)

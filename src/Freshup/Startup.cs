@@ -1,5 +1,6 @@
 ﻿using Freshup.Services;
 using Freshup.Services.FreshdeskTicketApp.Helpers;
+using Freshup.Services.Gui;
 using Freshup.Services.Gui.Helpers;
 using Freshup.Services.Testing;
 using Microsoft.Extensions.Configuration;
@@ -9,10 +10,9 @@ using Serilog;
 
 namespace Freshup;
 
-public class Startup : IHostedService
+public class Startup
 {
     private readonly IConfiguration _configuration;
-    private IEnumerable<IHostedService> _runningServices = Enumerable.Empty<IHostedService>();
         
     public Startup(IConfiguration configuration)
     {
@@ -23,7 +23,7 @@ public class Startup : IHostedService
             .CreateLogger();
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    public void Run()
     {
         Log.Information("Application starting...");
         // Set up services for dependency injection.
@@ -31,22 +31,9 @@ public class Startup : IHostedService
         ConfigureServices(services);
         var provider = services.BuildServiceProvider();
 
-        _runningServices = new IHostedService[]
-        {
-            provider.GetRequiredService<ITicketApp>(),
-        };
-        await Task.WhenAll(_runningServices.Select(s => 
-            s.StartAsync(cancellationToken)));
-        Application.Run(provider.GetRequiredService<MainForm>());
+        provider.GetRequiredService<ITicketApp>().Start();
+        provider.GetRequiredService<Gui>().Run();
         Log.Information("Application started");
-    }
-
-    public async Task StopAsync(CancellationToken cancellationToken)
-    {
-        Log.Information("Application stopping...");
-        await Task.WhenAll(_runningServices.Select(s => 
-            s.StopAsync(cancellationToken)));
-        Log.Information("Application stopped");
     }
         
     /// <summary>

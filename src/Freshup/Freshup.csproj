@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>WinExe</OutputType>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -43,7 +43,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Services\Gui\MainForm.cs">
+      <Compile Update="Services\Gui\SettingsForm.cs">
         <SubType>Form</SubType>
       </Compile>
       <Compile Update="Services\Gui\Resources.Designer.cs">

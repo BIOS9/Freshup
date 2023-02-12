@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.closeButton1 = new Freshup.Services.Gui.CloseButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.ticketPanel = new Freshup.Services.Gui.Controls.VerticalLayoutPanel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +83,12 @@
             this.ticketPanel.Size = new System.Drawing.Size(453, 138);
             this.ticketPanel.TabIndex = 4;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Freshup";
+            this.notifyIcon1.Visible = true;
+            // 
             // NotificationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -116,5 +124,6 @@
         private CloseButton closeButton1;
         private PictureBox pictureBox2;
         private Controls.VerticalLayoutPanel ticketPanel;
+        private NotifyIcon notifyIcon1;
     }
 }
