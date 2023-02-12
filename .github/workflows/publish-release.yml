@@ -43,7 +43,7 @@ jobs:
     - name: Create Squirrel package
       run: SquirrelTools/Squirrel.exe pack --packId "Freshup" --framework net6 --packVersion "$env:GITHUB_REF_NAME" --packDirectory Publish
 
-    - name: GH Release
+    - name: Create Github Release
       uses: softprops/action-gh-release@v0.1.15
       with:
         files: "Releases/*"
