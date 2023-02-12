@@ -9,6 +9,7 @@ namespace Freshup.Services.Gui
         public NotificationForm()
         {
             InitializeComponent();
+            ticketPanel.ControlRemoved += TicketPanel_ControlRemoved;
         }
 
         public void notify(ITicket ticket)
@@ -22,6 +23,13 @@ namespace Freshup.Services.Gui
             soundPlayer.Play();
         }
 
+        private void SetLocation(Screen notificationScreen)
+        {
+            Location = notificationScreen.WorkingArea.Location + notificationScreen.WorkingArea.Size - Size;
+        }
+
+        #region EVENT_HANDLERS
+
         private void NotificationForm_Load(object sender, EventArgs e)
         {
 
@@ -31,17 +39,12 @@ namespace Freshup.Services.Gui
         {
             e.Cancel = true;
             Hide();
-        }
-
-        private void SetLocation(Screen notificationScreen)
-        {
-            Location = notificationScreen.WorkingArea.Location + notificationScreen.WorkingArea.Size - Size;
+            ticketPanel.Controls.Clear();
         }
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
             Close();
-            ticketPanel.Controls.Clear();
         }
 
         private void NotificationForm_Move(object sender, EventArgs e)
@@ -53,5 +56,13 @@ namespace Freshup.Services.Gui
         {
             SetLocation(Screen.PrimaryScreen);
         }
+
+        private void TicketPanel_ControlRemoved(object? sender, ControlEventArgs e)
+        {
+            if(ticketPanel.Controls.Count == 0)
+                Close();
+        }
+
+        #endregion
     }
 }

@@ -39,11 +39,13 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.Image = global::Freshup.Services.Gui.Resources.NotificationImage;
             this.pictureBox1.Location = new System.Drawing.Point(2, 54);
             this.pictureBox1.MaximumSize = new System.Drawing.Size(162, 215);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(139, 93);
+            this.pictureBox1.Size = new System.Drawing.Size(139, 122);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -51,7 +53,7 @@
             // closeButton1
             // 
             this.closeButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeButton1.Location = new System.Drawing.Point(504, 119);
+            this.closeButton1.Location = new System.Drawing.Point(504, 144);
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(90, 32);
             this.closeButton1.TabIndex = 1;
@@ -73,9 +75,10 @@
             this.ticketPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ticketPanel.AutoScroll = true;
             this.ticketPanel.Location = new System.Drawing.Point(141, 4);
             this.ticketPanel.Name = "ticketPanel";
-            this.ticketPanel.Size = new System.Drawing.Size(453, 113);
+            this.ticketPanel.Size = new System.Drawing.Size(453, 138);
             this.ticketPanel.TabIndex = 4;
             // 
             // NotificationForm
@@ -84,7 +87,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(595, 154);
+            this.ClientSize = new System.Drawing.Size(595, 179);
             this.Controls.Add(this.ticketPanel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
