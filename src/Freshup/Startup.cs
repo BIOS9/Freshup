@@ -26,6 +26,7 @@ public class Startup
     public void Run()
     {
         Log.Information("Checking for updates...");
+        Log.Information("Update test1");
         CheckUpdates();
         Log.Information("Application starting...");
         // Set up services for dependency injection.
