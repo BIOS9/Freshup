@@ -28,24 +28,8 @@ public class Startup
         Log.Information("Checking for updates...");
         CheckUpdates();
         Log.Information("Application starting...");
-        // Set up services for dependency injection.
-        var services = new ServiceCollection();
-        ConfigureServices(services);
-        var provider = services.BuildServiceProvider();
 
-        provider.GetRequiredService<ITicketApp>().Start();
-        provider.GetRequiredService<Gui>().Run();
         Log.Information("Application started");
-    }
-
-    /// <summary>
-    /// Configures services to be dependency injected.
-    /// </summary>
-    private void ConfigureServices(IServiceCollection services)
-    {
-        services.AddLogging(x => x.AddSerilog());
-        services.AddFreshdesk(_configuration);
-        services.AddGui();
     }
 
     #region UPDATES
