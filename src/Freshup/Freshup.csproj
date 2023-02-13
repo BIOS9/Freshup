@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -9,27 +9,32 @@
       <UserSecretsId>17299cd6-0fa3-481a-ba06-0b73d6f2ad94</UserSecretsId>
       <ApplicationIcon>Services\Gui\Resources\AppleCan.ico</ApplicationIcon>
       <ApplicationManifest>app.manifest</ApplicationManifest>
+      <StartupObject>Freshup.Program</StartupObject>
   </PropertyGroup>
 
     <ItemGroup>
       <Compile Remove="Properties\**" />
       <Compile Remove="Resources\**" />
+      <Compile Remove="Services\**" />
       <EmbeddedResource Remove="Properties\**" />
       <EmbeddedResource Remove="Resources\**" />
+      <EmbeddedResource Remove="Services\**" />
       <None Remove="Properties\**" />
       <None Remove="Resources\**" />
+      <None Remove="Services\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Services\Gui\Resources\AppleCan.ico" />
+      <Compile Include="Properties\Settings.Designer.cs">
+        <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Settings.settings</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
       <PackageReference Include="Freshdesk.Api" Version="0.13.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
       <PackageReference Include="Serilog" Version="3.0.0-dev-01862" />
       <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.1-dev-10301" />
       <PackageReference Include="Serilog.Settings.Configuration" Version="3.5.0-dev-00370" />
@@ -45,21 +50,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Services\Gui\SettingsForm.cs">
-        <SubType>Form</SubType>
-      </Compile>
-      <Compile Update="Services\Gui\Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="Services\Gui\Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+      <None Include="Properties\Settings.settings">
+        <Generator>SettingsSingleFileGenerator</Generator>
+        <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      </None>
     </ItemGroup>
 
 </Project>
