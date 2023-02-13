@@ -1,7 +1,6 @@
 ﻿using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
 using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TimeSpanParserUtil;
 
@@ -10,20 +9,19 @@ namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 public class FreshdeskTicketApp : ITicketApp
 {
     private readonly FreshdeskOptions _options;
-    private readonly ILogger<FreshdeskTicketApp> _logger;
     private readonly FreshdeskClient _freshdeskClient;
     private readonly CancellationTokenSource _pollingTokenSource = new();
     private HashSet<FreshdeskTicket> _tickets = new();
 
-    public delegate void TicketsUpdatedEventHandler(object sender, IEnumerable<FreshdeskTicket> tickets);
-    public event TicketsUpdatedEventHandler TicketsUpdated;
+    private delegate void TicketsUpdatedEventHandler(object sender, IEnumerable<FreshdeskTicket> tickets);
+    private event TicketsUpdatedEventHandler? TicketsUpdated;
 
-    public event ITicketApp.NewTicketEventHandler NewTicket;
+    public event ITicketApp.NewTicketEventHandler? NewTicket;
+    public event ITicketApp.ExceptionThrownEventHandler? ExceptionThrown;
 
-    public FreshdeskTicketApp(IOptions<FreshdeskOptions> options, ILogger<FreshdeskTicketApp> logger)
+    public FreshdeskTicketApp(IOptions<FreshdeskOptions> options)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         var freshdeskHttpClient = FreshdeskHttpClient.Create(_options.Domain, _options.ApiKey);
         _freshdeskClient = FreshdeskClient.Create(freshdeskHttpClient);
@@ -32,12 +30,14 @@ public class FreshdeskTicketApp : ITicketApp
     public void Start()
     {
         StartPolling(_pollingTokenSource.Token);
-        _logger.LogInformation("Freshdesk monitoring started");
     }
 
     public void Stop()
     {
-        _pollingTokenSource.Cancel();
+        using (_pollingTokenSource)
+        {
+            _pollingTokenSource.Cancel();
+        }
     }
 
     public async Task<IEnumerable<ITicket>> GetTicketsAsync()
@@ -86,8 +86,8 @@ public class FreshdeskTicketApp : ITicketApp
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occured in ticket polling loop {Message}", ex.Message);
-                await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
+                ExceptionThrown?.Invoke(this, ex);
+                await Task.Delay(TimeSpan.FromMinutes(10), cancellationToken);
             }
             /* A note on this delay:
              * This technically means the loop does not run using the interval specified in the settings, but with interval + download time

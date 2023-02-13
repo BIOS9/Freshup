@@ -8,4 +8,7 @@ public interface ITicketApp
 
     delegate void NewTicketEventHandler(object sender, ITicket ticket);
     event NewTicketEventHandler NewTicket;
+
+    delegate void ExceptionThrownEventHandler(object sender, Exception ex);
+    event ExceptionThrownEventHandler ExceptionThrown;
 }
