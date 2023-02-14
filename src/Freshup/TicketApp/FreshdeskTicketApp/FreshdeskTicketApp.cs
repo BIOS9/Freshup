@@ -1,4 +1,4 @@
-﻿using FreshdeskApi.Client;
+using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
 using System.Text.RegularExpressions;
 
@@ -6,7 +6,7 @@ namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
-    public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromMilliseconds(1500);
+    public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromSeconds(5);
     public static readonly Regex DomainRegex = new Regex(@"^https:\/\/.+$", RegexOptions.IgnoreCase);
     public static readonly Regex ApiKeyRegex = new Regex(@"^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
 
