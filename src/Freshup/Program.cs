@@ -11,7 +11,7 @@ public class Program
     {
         CheckUpdates();
         ApplicationConfiguration.Initialize();
-        new Gui().Run();
+        Application.Run(new Gui());
     }
 
     #region UPDATES
