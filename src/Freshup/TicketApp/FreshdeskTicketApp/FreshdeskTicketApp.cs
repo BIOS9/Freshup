@@ -1,14 +1,19 @@
 ﻿using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
-using Freshup.Services.TicketApp.FreshdeskTicketApp.Configuration;
-using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 using TimeSpanParserUtil;
 
 namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
-    private readonly FreshdeskOptions _options;
+    public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromMilliseconds(1500);
+    public static readonly Regex DomainRegex = new Regex(@"/^https:\/\/.+$", RegexOptions.IgnoreCase);
+    public static readonly Regex ApiKeyRegex = new Regex(@"/^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
+
+    private readonly string _domain;
+    private readonly string _apiKey;
+    private readonly TimeSpan _pollingInterval;
     private readonly FreshdeskClient _freshdeskClient;
     private readonly CancellationTokenSource _pollingTokenSource = new();
     private HashSet<FreshdeskTicket> _tickets = new();
@@ -19,11 +24,22 @@ public class FreshdeskTicketApp : ITicketApp
     public event ITicketApp.NewTicketEventHandler? NewTicket;
     public event ITicketApp.ExceptionThrownEventHandler? ExceptionThrown;
 
-    public FreshdeskTicketApp(IOptions<FreshdeskOptions> options)
+    public FreshdeskTicketApp(string domain, string apiKey, TimeSpan pollingInterval)
     {
-        _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+        _domain = domain ?? throw new ArgumentNullException(nameof(domain));
+        _apiKey = apiKey ?? throw new ArgumentNullException(nameof(apiKey));
+        _pollingInterval = pollingInterval;
 
-        var freshdeskHttpClient = FreshdeskHttpClient.Create(_options.Domain, _options.ApiKey);
+        if (!DomainRegex.IsMatch(_domain))
+            throw new ArgumentException("Freshdesk domain invalid. Ensure it starts with https://");
+
+        if (!ApiKeyRegex.IsMatch(_apiKey))
+            throw new ArgumentException("Invalid Freshdesk API key");
+
+        if (_pollingInterval < MinimumTicketPollInterval)
+            throw new ArgumentException($"TicketPollInterval is too small. Minimum is: {MinimumTicketPollInterval.TotalSeconds}s");
+
+        var freshdeskHttpClient = FreshdeskHttpClient.Create(_domain, _apiKey);
         _freshdeskClient = FreshdeskClient.Create(freshdeskHttpClient);
     }
 
