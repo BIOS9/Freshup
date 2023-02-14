@@ -68,14 +68,17 @@ public class FreshdeskTicketApp : ITicketApp
 
     private async void StartPolling(CancellationToken cancellationToken)
     {
-#if !DEBUG
-        await Task.Delay(TimeSpan.FromSeconds(30));
-#endif
-
         bool firstRun = true;
-
         while (!cancellationToken.IsCancellationRequested)
         {
+            /* A note on this delay:
+             * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
+             * since it waits for the download and then waits for another interval.
+             *
+             * This can be changed later if needed.
+             */
+            await Task.Delay(_pollingInterval, cancellationToken);
+
             try
             {
                 var existingTickets = _tickets; // Defensive reference
@@ -105,13 +108,6 @@ public class FreshdeskTicketApp : ITicketApp
                 ExceptionThrown?.Invoke(this, ex);
                 await Task.Delay(TimeSpan.FromMinutes(10), cancellationToken);
             }
-            /* A note on this delay:
-             * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
-             * since it waits for the download and then waits for another interval.
-             *
-             * This can be changed later if needed.
-             */
-            await Task.Delay(TimeSpanParser.Parse(_options.TicketPollInterval), cancellationToken);
         }
     }
 }
