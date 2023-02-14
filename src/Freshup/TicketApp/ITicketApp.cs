@@ -1,6 +1,6 @@
 ﻿namespace Freshup.Services.TicketApp;
 
-public interface ITicketApp
+public interface ITicketApp : IDisposable
 {
     void Start();
     void Stop();

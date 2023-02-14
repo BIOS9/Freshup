@@ -32,134 +32,81 @@ partial class SettingsForm
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.testNotificationButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.domainTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.enableNotificationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.label2 = new System.Windows.Forms.Label();
+            this.apiKeyTextBox = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // domainTextBox
             // 
-            this.groupBox1.Controls.Add(this.testNotificationButton);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.trackBar2);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.trackBar1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.enableNotificationsCheckBox);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 306);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ticket Notifications";
-            // 
-            // testNotificationButton
-            // 
-            this.testNotificationButton.Location = new System.Drawing.Point(6, 180);
-            this.testNotificationButton.Name = "testNotificationButton";
-            this.testNotificationButton.Size = new System.Drawing.Size(111, 23);
-            this.testNotificationButton.TabIndex = 7;
-            this.testNotificationButton.Text = "Test Notification";
-            this.testNotificationButton.UseVisualStyleBackColor = true;
-            this.testNotificationButton.Click += new System.EventHandler(this.testNotificationButton_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 134);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 15);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Default notification sound";
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Location = new System.Drawing.Point(140, 89);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(199, 45);
-            this.trackBar2.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 89);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Ticket polling interval";
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(140, 47);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(199, 45);
-            this.trackBar1.TabIndex = 3;
+            this.domainTextBox.Location = new System.Drawing.Point(125, 6);
+            this.domainTextBox.Name = "domainTextBox";
+            this.domainTextBox.Size = new System.Drawing.Size(183, 23);
+            this.domainTextBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 51);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Auto hide notifications";
+            this.label1.Size = new System.Drawing.Size(107, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Freshdesk Domain:";
             // 
-            // enableNotificationsCheckBox
+            // label2
             // 
-            this.enableNotificationsCheckBox.AutoSize = true;
-            this.enableNotificationsCheckBox.Location = new System.Drawing.Point(6, 22);
-            this.enableNotificationsCheckBox.Name = "enableNotificationsCheckBox";
-            this.enableNotificationsCheckBox.Size = new System.Drawing.Size(187, 19);
-            this.enableNotificationsCheckBox.TabIndex = 0;
-            this.enableNotificationsCheckBox.Text = "Enable new ticket notifications";
-            this.enableNotificationsCheckBox.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Freshdesk API Key:";
             // 
-            // groupBox2
+            // apiKeyTextBox
             // 
-            this.groupBox2.Location = new System.Drawing.Point(432, 16);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(388, 302);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ticket Snoozing";
+            this.apiKeyTextBox.Location = new System.Drawing.Point(125, 38);
+            this.apiKeyTextBox.Name = "apiKeyTextBox";
+            this.apiKeyTextBox.Size = new System.Drawing.Size(183, 23);
+            this.apiKeyTextBox.TabIndex = 3;
+            this.apiKeyTextBox.UseSystemPasswordChar = true;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(12, 76);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(296, 23);
+            this.saveButton.TabIndex = 4;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 332);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(322, 111);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.apiKeyTextBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.domainTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "Freshup";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
     #endregion
 
-    private GroupBox groupBox1;
+    private TextBox domainTextBox;
     private Label label1;
-    private CheckBox enableNotificationsCheckBox;
-    private Label label3;
-    private TrackBar trackBar2;
     private Label label2;
-    private TrackBar trackBar1;
-    private GroupBox groupBox2;
-    private Button testNotificationButton;
+    private TextBox apiKeyTextBox;
+    private Button saveButton;
 }

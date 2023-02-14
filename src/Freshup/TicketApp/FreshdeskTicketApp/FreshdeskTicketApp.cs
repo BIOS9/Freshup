@@ -1,19 +1,19 @@
 ﻿using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
 using System.Text.RegularExpressions;
-using TimeSpanParserUtil;
 
 namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
     public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromMilliseconds(1500);
-    public static readonly Regex DomainRegex = new Regex(@"/^https:\/\/.+$", RegexOptions.IgnoreCase);
-    public static readonly Regex ApiKeyRegex = new Regex(@"/^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
+    public static readonly Regex DomainRegex = new Regex(@"^https:\/\/.+$", RegexOptions.IgnoreCase);
+    public static readonly Regex ApiKeyRegex = new Regex(@"^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
 
     private readonly string _domain;
     private readonly string _apiKey;
     private readonly TimeSpan _pollingInterval;
+    private readonly FreshdeskHttpClient _httpClient;
     private readonly FreshdeskClient _freshdeskClient;
     private readonly CancellationTokenSource _pollingTokenSource = new();
     private HashSet<FreshdeskTicket> _tickets = new();
@@ -39,8 +39,8 @@ public class FreshdeskTicketApp : ITicketApp
         if (_pollingInterval < MinimumTicketPollInterval)
             throw new ArgumentException($"TicketPollInterval is too small. Minimum is: {MinimumTicketPollInterval.TotalSeconds}s");
 
-        var freshdeskHttpClient = FreshdeskHttpClient.Create(_domain, _apiKey);
-        _freshdeskClient = FreshdeskClient.Create(freshdeskHttpClient);
+        _httpClient = FreshdeskHttpClient.Create(_domain, _apiKey);
+        _freshdeskClient = FreshdeskClient.Create(_httpClient);
     }
 
     public void Start()
@@ -71,16 +71,16 @@ public class FreshdeskTicketApp : ITicketApp
         bool firstRun = true;
         while (!cancellationToken.IsCancellationRequested)
         {
-            /* A note on this delay:
-             * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
-             * since it waits for the download and then waits for another interval.
-             *
-             * This can be changed later if needed.
-             */
-            await Task.Delay(_pollingInterval, cancellationToken);
-
             try
             {
+                /* A note on this delay:
+                 * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
+                 * since it waits for the download and then waits for another interval.
+                 *
+                 * This can be changed later if needed.
+                 */
+                await Task.Delay(_pollingInterval, cancellationToken);
+
                 var existingTickets = _tickets; // Defensive reference
                 var newTickets = new HashSet<FreshdeskTicket>();
 
@@ -103,11 +103,17 @@ public class FreshdeskTicketApp : ITicketApp
                 _tickets = newTickets;
                 firstRun = false;
             }
+            catch(TaskCanceledException ex) { }
             catch (Exception ex)
             {
                 ExceptionThrown?.Invoke(this, ex);
                 await Task.Delay(TimeSpan.FromMinutes(10), cancellationToken);
             }
         }
+    }
+
+    public void Dispose()
+    {
+        _httpClient.Dispose();
     }
 }

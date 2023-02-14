@@ -9,26 +9,24 @@ namespace Freshup.Services.Gui
     {
         private readonly NotifyIcon _trayIcon;
         private ITicketApp? _ticketApp;
+        private bool _firstRun = true;
 
         public Gui()
         {
             LoadTicketApp();
             ContextMenuStrip contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add(new ToolStripMenuItem("Exit", null, new EventHandler(Exit)));
+            contextMenu.Items.Add(new ToolStripMenuItem("Settings", null, new EventHandler(SettingsClicked)));
+            contextMenu.Items.Add(new ToolStripMenuItem("Exit", null, new EventHandler(ExitClicked)));
             _trayIcon = new NotifyIcon()
             {
                 Icon = Properties.Resources.AppleCan,
                 ContextMenuStrip = contextMenu,
                 Visible = true
             };
-
-            //_ticketApp.NewTicket += _ticketApp_NewTicket;
-            //_notificationForm = new NotificationForm();
         }
 
         public void LoadTicketApp()
         {
-            bool firstRun = true;
             while (true)
             {
                 try
@@ -52,12 +50,18 @@ namespace Freshup.Services.Gui
                 } 
                 catch(ArgumentException ex)
                 {
-                    if(!firstRun)
+                    if(!_firstRun)
                         MessageBox.Show(ex.Message, "Invalid Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     using (var settingsForm = new SettingsForm())
-                        settingsForm.ShowDialog();
+                    {
+                        if (settingsForm.ShowDialog() != DialogResult.OK)
+                            Environment.Exit(1);
+                    }
                 }
-                firstRun = false;
+                finally
+                {
+                    _firstRun = false;
+                }
             }
         }
 
@@ -73,7 +77,16 @@ namespace Freshup.Services.Gui
             //}
         }
 
-        private void Exit(object sender, EventArgs e)
+        private void SettingsClicked(object sender, EventArgs e)
+        {
+            using (var settingsForm = new SettingsForm())
+            {
+                settingsForm.ShowDialog();
+                LoadTicketApp();
+            }
+        }
+
+        private void ExitClicked(object sender, EventArgs e)
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             _trayIcon.Visible = false;

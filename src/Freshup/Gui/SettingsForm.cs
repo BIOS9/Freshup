@@ -12,22 +12,18 @@ public partial class SettingsForm : Form
         InitializeComponent();
     }
 
-    private void testNotificationButton_Click(object sender, EventArgs e)
-    {
-        
-    }
-
-    private class TestTicket : ITicket
-    {
-        public string? Subject => "Test Ticket Subject";
-        public string? Description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-        public string? SenderEmail => "bobby.fischer@email.com";
-        public string? SenderName => "Bobby Fischer";
-        public Uri? Link => null;
-    }
-
     private void SettingsForm_Load(object sender, EventArgs e)
     {
+        domainTextBox.Text = Properties.Settings.Default.FreshdeskDomain;
+        apiKeyTextBox.Text = Properties.Settings.Default.FreshdeskApiKey;
+    }
 
+    private void saveButton_Click(object sender, EventArgs e)
+    {
+        Properties.Settings.Default.FreshdeskDomain = domainTextBox.Text;
+        Properties.Settings.Default.FreshdeskApiKey = apiKeyTextBox.Text;
+        Properties.Settings.Default.Save();
+        DialogResult = DialogResult.OK;
+        Close();
     }
 }
