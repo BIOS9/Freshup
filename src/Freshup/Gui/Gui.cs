@@ -10,6 +10,7 @@ namespace Freshup.Services.Gui
         private readonly NotifyIcon _trayIcon;
         private ITicketApp? _ticketApp;
         private bool _firstRun = true;
+        private NotificationForm _notificationForm = new NotificationForm();
 
         public Gui()
         {
@@ -67,14 +68,10 @@ namespace Freshup.Services.Gui
 
         private void _ticketApp_NewTicket(object sender, ITicket ticket)
         {
-            //if (_notificationForm.InvokeRequired)
-            //{
-            //    _notificationForm.Invoke(() => _notificationForm.Notify(ticket));
-            //}
-            //else
-            //{
-            //    _notificationForm.Notify(ticket);
-            //}
+            if (_notificationForm.InvokeRequired)
+                _notificationForm.Invoke(() => _notificationForm.Notify(ticket));
+            else
+                _notificationForm.Notify(ticket);
         }
 
         private void SettingsClicked(object sender, EventArgs e)
@@ -90,7 +87,7 @@ namespace Freshup.Services.Gui
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             _trayIcon.Visible = false;
-            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }
