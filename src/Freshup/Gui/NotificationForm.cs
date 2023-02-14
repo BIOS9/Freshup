@@ -24,7 +24,7 @@ namespace Freshup.Services.Gui
 
             ticketPanel.Controls.Add(new TicketSummary(ticket));
 
-            using SoundPlayer soundPlayer = new SoundPlayer(Resources.DefaultNotificationSound);
+            using SoundPlayer soundPlayer = new SoundPlayer(Properties.Resources.DefaultNotificationSound);
             soundPlayer.Play();
         }
 

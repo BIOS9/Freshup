@@ -21,22 +21,22 @@ namespace Freshup.Services.Gui
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            pictureBox1.Image = Resources.CloseDarkRed;
+            pictureBox1.Image = Properties.Resources.CloseDarkRed;
         }
 
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox1.Image = Resources.CloseRed;
+            pictureBox1.Image = Properties.Resources.CloseRed;
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            pictureBox1.Image = Resources.CloseBlue;
+            pictureBox1.Image = Properties.Resources.CloseBlue;
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            pictureBox1.Image = Resources.CloseRed;
+            pictureBox1.Image = Properties.Resources.CloseRed;
             Click?.Invoke(this, e);
         }
     }

@@ -43,7 +43,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.Image = global::Freshup.Services.Gui.Resources.NotificationImage;
+            this.pictureBox1.Image = Properties.Resources.NotificationImage;
             this.pictureBox1.Location = new System.Drawing.Point(2, 54);
             this.pictureBox1.MaximumSize = new System.Drawing.Size(162, 215);
             this.pictureBox1.Name = "pictureBox1";
@@ -64,7 +64,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::Freshup.Services.Gui.Resources.Thirsty;
+            this.pictureBox2.Image = Properties.Resources.Thirsty;
             this.pictureBox2.Location = new System.Drawing.Point(4, 4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(137, 44);
