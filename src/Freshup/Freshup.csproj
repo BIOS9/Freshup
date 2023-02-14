@@ -7,29 +7,42 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
       <UserSecretsId>17299cd6-0fa3-481a-ba06-0b73d6f2ad94</UserSecretsId>
-      <ApplicationIcon>Services\Gui\Resources\AppleCan.ico</ApplicationIcon>
-      <ApplicationManifest>app.manifest</ApplicationManifest>
       <StartupObject>Freshup.Program</StartupObject>
+      <ApplicationIcon>Resources\AppleCan.ico</ApplicationIcon>
+      <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
     <ItemGroup>
       <Compile Remove="Properties\**" />
-      <Compile Remove="Resources\**" />
       <Compile Remove="Services\**" />
       <EmbeddedResource Remove="Properties\**" />
-      <EmbeddedResource Remove="Resources\**" />
       <EmbeddedResource Remove="Services\**" />
       <None Remove="Properties\**" />
-      <None Remove="Resources\**" />
       <None Remove="Services\**" />
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="Properties\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
       <Compile Include="Properties\Settings.Designer.cs">
         <DesignTimeSharedInput>True</DesignTimeSharedInput>
         <AutoGen>True</AutoGen>
         <DependentUpon>Settings.settings</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Resources\AppleCan.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
