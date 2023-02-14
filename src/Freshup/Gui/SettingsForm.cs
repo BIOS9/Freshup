@@ -7,21 +7,14 @@ namespace Freshup.Services.Testing;
 
 public partial class SettingsForm : Form
 {
-    private readonly ILogger<SettingsForm> _logger;
-    private readonly ITicketApp _ticketApp;
-    private readonly NotificationForm _notificationForm;
-
-    public SettingsForm(ILogger<SettingsForm> logger, ITicketApp ticketApp)
+    public SettingsForm()
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _ticketApp = ticketApp ?? throw new ArgumentNullException(nameof(ticketApp));
-        _notificationForm = new NotificationForm();
         InitializeComponent();
     }
 
     private void testNotificationButton_Click(object sender, EventArgs e)
     {
-        _notificationForm.Notify(new TestTicket());
+        
     }
 
     private class TestTicket : ITicket
