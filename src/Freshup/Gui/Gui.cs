@@ -8,11 +8,11 @@ namespace Freshup.Services.Gui
     internal class Gui : ApplicationContext
     {
         private readonly NotifyIcon _trayIcon;
-        private readonly ITicketApp _ticketApp;
-        private readonly NotificationForm _notificationForm;
+        private ITicketApp? _ticketApp;
 
         public Gui()
         {
+            LoadTicketApp();
             ContextMenuStrip contextMenu = new ContextMenuStrip();
             contextMenu.Items.Add(new ToolStripMenuItem("Exit", null, new EventHandler(Exit)));
             _trayIcon = new NotifyIcon()
@@ -22,29 +22,55 @@ namespace Freshup.Services.Gui
                 Visible = true
             };
 
-            //_ticketApp = new FreshdeskTicketApp(
-            //    Properties.Settings.Default.FreshdeskDomain,
-            //    Properties.Settings.Default.FreshdeskApiKey,
-            //    Properties.Settings.Default.FreshdeskPollInterval);
             //_ticketApp.NewTicket += _ticketApp_NewTicket;
             //_notificationForm = new NotificationForm();
         }
 
-        public void Run()
+        public void LoadTicketApp()
         {
-            
+            bool firstRun = true;
+            while (true)
+            {
+                try
+                {
+                    if(_ticketApp != null)
+                    {
+                        _ticketApp.NewTicket -= _ticketApp_NewTicket;
+                        _ticketApp.Stop();
+                        _ticketApp.Dispose();
+                        _ticketApp = null;
+                    }
+                   
+                    _ticketApp = new FreshdeskTicketApp(
+                       Properties.Settings.Default.FreshdeskDomain,
+                       Properties.Settings.Default.FreshdeskApiKey,
+                       Properties.Settings.Default.FreshdeskPollInterval);
+                    _ticketApp.NewTicket += _ticketApp_NewTicket;
+                    _ticketApp.Start();
+
+                    break;
+                } 
+                catch(ArgumentException ex)
+                {
+                    if(!firstRun)
+                        MessageBox.Show(ex.Message, "Invalid Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    using (var settingsForm = new SettingsForm())
+                        settingsForm.ShowDialog();
+                }
+                firstRun = false;
+            }
         }
 
         private void _ticketApp_NewTicket(object sender, ITicket ticket)
         {
-            if (_notificationForm.InvokeRequired)
-            {
-                _notificationForm.Invoke(() => _notificationForm.Notify(ticket));
-            }
-            else
-            {
-                _notificationForm.Notify(ticket);
-            }
+            //if (_notificationForm.InvokeRequired)
+            //{
+            //    _notificationForm.Invoke(() => _notificationForm.Notify(ticket));
+            //}
+            //else
+            //{
+            //    _notificationForm.Notify(ticket);
+            //}
         }
 
         private void Exit(object sender, EventArgs e)
