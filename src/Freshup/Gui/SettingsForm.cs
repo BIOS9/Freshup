@@ -14,6 +14,7 @@ public partial class SettingsForm : Form
     {
         InitializeComponent();
         settingsMenuItem.Click += SettingsMenuItem_Click;
+        exitMenuItem.Click += ExitMenuItem_Click;
         notifyIcon1.Icon = Properties.Resources.AppleCan;
     }
 
@@ -54,6 +55,11 @@ public partial class SettingsForm : Form
         Show();
         ShowInTaskbar = true;
         WindowState = FormWindowState.Normal;
+    }
+
+    private void ExitMenuItem_Click(object? sender, EventArgs e)
+    {
+        Application.Exit();
     }
 
     private void SettingsForm_Load(object sender, EventArgs e)
