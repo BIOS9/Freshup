@@ -104,4 +104,9 @@ public partial class SettingsForm : Form
     {
         Invoke(() => _notificationForm.Notify(ticket));
     }
+
+    private void cancelButton_Click(object sender, EventArgs e)
+    {
+        Hide();
+    }
 }

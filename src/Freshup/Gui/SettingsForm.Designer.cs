@@ -40,8 +40,9 @@ partial class SettingsForm
             this.saveButton = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@ partial class SettingsForm
             // 
             this.domainTextBox.Location = new System.Drawing.Point(125, 6);
             this.domainTextBox.Name = "domainTextBox";
-            this.domainTextBox.Size = new System.Drawing.Size(183, 23);
+            this.domainTextBox.Size = new System.Drawing.Size(237, 23);
             this.domainTextBox.TabIndex = 0;
             // 
             // label1
@@ -74,7 +75,7 @@ partial class SettingsForm
             // 
             this.apiKeyTextBox.Location = new System.Drawing.Point(125, 38);
             this.apiKeyTextBox.Name = "apiKeyTextBox";
-            this.apiKeyTextBox.Size = new System.Drawing.Size(183, 23);
+            this.apiKeyTextBox.Size = new System.Drawing.Size(237, 23);
             this.apiKeyTextBox.TabIndex = 3;
             this.apiKeyTextBox.UseSystemPasswordChar = true;
             // 
@@ -82,7 +83,7 @@ partial class SettingsForm
             // 
             this.saveButton.Location = new System.Drawing.Point(12, 76);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(296, 23);
+            this.saveButton.Size = new System.Drawing.Size(172, 23);
             this.saveButton.TabIndex = 4;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -91,7 +92,7 @@ partial class SettingsForm
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "Freshup";
             this.notifyIcon1.Visible = true;
             // 
             // contextMenuStrip1
@@ -100,25 +101,37 @@ partial class SettingsForm
             this.settingsMenuItem,
             this.exitMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
-            // 
-            // exitMenuItem
-            // 
-            this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitMenuItem.Text = "Exit";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 48);
             // 
             // settingsMenuItem
             // 
             this.settingsMenuItem.Name = "settingsMenuItem";
-            this.settingsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsMenuItem.Text = "Settings";
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitMenuItem.Text = "Exit";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(190, 76);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(172, 23);
+            this.cancelButton.TabIndex = 5;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 111);
+            this.ClientSize = new System.Drawing.Size(373, 111);
+            this.ControlBox = false;
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.apiKeyTextBox);
             this.Controls.Add(this.label2);
@@ -132,7 +145,7 @@ partial class SettingsForm
             this.Opacity = 0D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Freshup";
+            this.Text = "Freshup Settings";
             this.Activated += new System.EventHandler(this.SettingsForm_Activated);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
@@ -152,4 +165,5 @@ partial class SettingsForm
     private ContextMenuStrip contextMenuStrip1;
     private ToolStripMenuItem exitMenuItem;
     private ToolStripMenuItem settingsMenuItem;
+    private Button cancelButton;
 }
