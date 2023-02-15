@@ -17,40 +17,34 @@ public partial class SettingsForm : Form
         notifyIcon1.Icon = Properties.Resources.AppleCan;
     }
 
-    public void LoadTicketApp()
+    private bool TryInitTicketApp(out string error)
     {
-        while (true)
+        try
         {
-            try
+            if (_ticketApp != null)
             {
-                if (_ticketApp != null)
-                {
-                    _ticketApp.NewTicket -= _ticketApp_NewTicket;
-                    _ticketApp.ExceptionThrown -= _ticketApp_ExceptionThrown;
-                    _ticketApp.Stop();
-                    _ticketApp.Dispose();
-                    _ticketApp = null;
-                }
-
-                _ticketApp = new FreshdeskTicketApp(
-                   Properties.Settings.Default.FreshdeskDomain,
-                   Properties.Settings.Default.FreshdeskApiKey,
-                   Properties.Settings.Default.FreshdeskPollInterval);
-                _ticketApp.NewTicket += _ticketApp_NewTicket;
-                _ticketApp.ExceptionThrown += _ticketApp_ExceptionThrown;
-                _ticketApp.Start();
-
-                break;
+                _ticketApp.NewTicket -= _ticketApp_NewTicket;
+                _ticketApp.ExceptionThrown -= _ticketApp_ExceptionThrown;
+                _ticketApp.Stop();
+                _ticketApp.Dispose();
+                _ticketApp = null;
             }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Invalid Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                using (var settingsForm = new SettingsForm())
-                {
-                    _firstHide = false;
-                    Show();
-                }
-            }
+
+            _ticketApp = new FreshdeskTicketApp(
+               Properties.Settings.Default.FreshdeskDomain,
+               Properties.Settings.Default.FreshdeskApiKey,
+               Properties.Settings.Default.FreshdeskPollInterval);
+            _ticketApp.NewTicket += _ticketApp_NewTicket;
+            _ticketApp.ExceptionThrown += _ticketApp_ExceptionThrown;
+            _ticketApp.Start();
+
+            error = string.Empty;
+            return true;
+        }
+        catch (ArgumentException ex)
+        {
+            error = ex.Message;
+            return false;
         }
     }
 
@@ -66,8 +60,6 @@ public partial class SettingsForm : Form
     {
         domainTextBox.Text = Properties.Settings.Default.FreshdeskDomain;
         apiKeyTextBox.Text = Properties.Settings.Default.FreshdeskApiKey;
-
-        LoadTicketApp();
     }
 
     private void saveButton_Click(object sender, EventArgs e)
@@ -75,15 +67,23 @@ public partial class SettingsForm : Form
         Properties.Settings.Default.FreshdeskDomain = domainTextBox.Text;
         Properties.Settings.Default.FreshdeskApiKey = apiKeyTextBox.Text;
         Properties.Settings.Default.Save();
-        DialogResult = DialogResult.OK;
-        Close();
+        
+        if(TryInitTicketApp(out string error))
+        {
+            Hide();
+        }
+        else
+        {
+            MessageBox.Show(error, "Invalid Settings", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
     }
 
     private void SettingsForm_Activated(object sender, EventArgs e)
     {
         if (_firstHide)
         {
-            Hide();
+            if(TryInitTicketApp(out string error))
+                Hide();
             Opacity = 1;
         }
     }
