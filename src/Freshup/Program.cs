@@ -1,6 +1,7 @@
 ﻿using Squirrel.Sources;
 using Squirrel;
 using Freshup.Services.Gui;
+using Freshup.Services.Testing;
 
 namespace Freshup;
 
@@ -11,7 +12,7 @@ public class Program
     {
         CheckUpdates();
         ApplicationConfiguration.Initialize();
-        Application.Run(new Gui());
+        Application.Run(new SettingsForm());
     }
 
     #region UPDATES

@@ -1,4 +1,4 @@
-using FreshdeskApi.Client;
+﻿using FreshdeskApi.Client;
 using FreshdeskApi.Client.Tickets.Requests;
 using System.Text.RegularExpressions;
 
@@ -99,6 +99,11 @@ public class FreshdeskTicketApp : ITicketApp
                     newTickets.Add(hashTicket);
                 }
 
+                if (firstRun)
+                {
+                    NewTicket?.Invoke(this, new TestTicket());
+                }
+                
                 TicketsUpdated?.Invoke(this, newTickets);
                 _tickets = newTickets;
                 firstRun = false;
@@ -110,6 +115,15 @@ public class FreshdeskTicketApp : ITicketApp
                 await Task.Delay(TimeSpan.FromMinutes(10), cancellationToken);
             }
         }
+    }
+
+    private class TestTicket : ITicket
+    {
+        public string? Subject => "Subject";
+        public string? Description => "Description";
+        public string? SenderEmail => "Email";
+        public string? SenderName => "Sender name";
+        public Uri? Link => new Uri("https://google.com");
     }
 
     public void Dispose()
