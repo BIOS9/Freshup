@@ -89,14 +89,15 @@ public class FreshdeskTicketApp : ITicketApp
                                    new PaginationConfiguration(),
                                    cancellationToken))
                 {
-                    var hashTicket = new FreshdeskTicket(ticket);
+                    var hashableTicket = new FreshdeskTicket(ticket);
 
-                    if (!firstRun && !existingTickets.Contains(hashTicket))
+                    if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {
-                        NewTicket?.Invoke(this, hashTicket);
+                        var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
+                        NewTicket?.Invoke(this, newTicket);
                     }
 
-                    newTickets.Add(hashTicket);
+                    newTickets.Add(hashableTicket);
                 }
 
 #if DEBUG
