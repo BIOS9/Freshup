@@ -10,11 +10,13 @@ public class FreshdeskTicket : ITicket
     public string? Description => Ticket?.Description;
     public string? SenderEmail => Ticket?.Requester?.Email;
     public string? SenderName => Ticket?.Requester?.Name;
-    public Uri? Link => null;
+    public Uri? Link => new Uri($"{_freshdeskDomain}/a/tickets/{Ticket.Id}");
 
+    private readonly string _freshdeskDomain;
 
-    public FreshdeskTicket(Ticket ticket)
+    public FreshdeskTicket(Ticket ticket, string freshdeskDomain)
     {
+        _freshdeskDomain = freshdeskDomain ?? throw new ArgumentException(nameof(freshdeskDomain));
         Ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));
     }
 
