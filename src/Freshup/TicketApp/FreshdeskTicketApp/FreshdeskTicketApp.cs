@@ -91,7 +91,7 @@ public class FreshdeskTicketApp : ITicketApp
                                    new PaginationConfiguration(),
                                    cancellationToken))
                 {
-                    var hashableTicket = new FreshdeskTicket(ticket);
+                    var hashableTicket = new FreshdeskTicket(ticket, _domain);
 
                     if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {

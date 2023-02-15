@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,21 @@ namespace Freshup.Services.Gui.Controls
         private void ignoreButton_Click(object sender, EventArgs e)
         {
             Parent.Controls.Remove(this);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (_ticket.Link != null)
+            {
+                try
+                {
+                    Process.Start(_ticket.Link.ToString());
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Failed to open link: " + ex.Message, "Freshup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
