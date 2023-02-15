@@ -1,4 +1,6 @@
 ﻿using FreshdeskApi.Client;
+using FreshdeskApi.Client.Me;
+using FreshdeskApi.Client.Tickets.Models;
 using FreshdeskApi.Client.Tickets.Requests;
 using System.Text.RegularExpressions;
 
@@ -93,8 +95,12 @@ public class FreshdeskTicketApp : ITicketApp
 
                     if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {
-                        var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
-                        NewTicket?.Invoke(this, newTicket);
+                        //var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
+                        var contact = await _freshdeskClient.Contacts.ViewContactAsync(ticket.RequesterId);
+                        ticket.Requester = new Requester();
+                        ticket.Requester.Name = contact.Name;
+                        ticket.Requester.Email = contact.Email;
+                        NewTicket?.Invoke(this, hashableTicket);
                     }
 
                     newTickets.Add(hashableTicket);
