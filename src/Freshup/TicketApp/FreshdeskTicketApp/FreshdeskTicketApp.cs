@@ -99,11 +99,14 @@ public class FreshdeskTicketApp : ITicketApp
                     newTickets.Add(hashTicket);
                 }
 
+#if DEBUG
+                // show a test ticket in debug mode
                 if (firstRun)
                 {
                     NewTicket?.Invoke(this, new TestTicket());
                 }
-                
+#endif
+
                 TicketsUpdated?.Invoke(this, newTickets);
                 _tickets = newTickets;
                 firstRun = false;
