@@ -59,7 +59,8 @@ public partial class SettingsForm : Form
 
     private void ExitMenuItem_Click(object? sender, EventArgs e)
     {
-        Application.Exit();
+        notifyIcon1.Visible = false;
+        Environment.Exit(0);
     }
 
     private void SettingsForm_Load(object sender, EventArgs e)
