@@ -39,7 +39,11 @@ namespace Freshup.Services.Gui.Controls
             {
                 try
                 {
-                    Process.Start(_ticket.Link.ToString());
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = _ticket.Link.ToString(),
+                        UseShellExecute = true
+                    });
                 }
                 catch(Exception ex)
                 {
