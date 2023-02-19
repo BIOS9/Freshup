@@ -95,11 +95,18 @@ public class FreshdeskTicketApp : ITicketApp
 
                     if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {
-                        //var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
-                        var contact = await _freshdeskClient.Contacts.ViewContactAsync(ticket.RequesterId);
-                        ticket.Requester = new Requester();
-                        ticket.Requester.Name = contact.Name;
-                        ticket.Requester.Email = contact.Email;
+                        try
+                        {
+                            //var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
+                            var contact = await _freshdeskClient.Contacts.ViewContactAsync(ticket.RequesterId);
+                            ticket.Requester = new Requester();
+                            ticket.Requester.Name = contact.Name;
+                            ticket.Requester.Email = contact.Email;
+                        }
+                        catch(Exception ex)
+                        {
+                            // Ignore for now, need to fix
+                        }
                         NewTicket?.Invoke(this, hashableTicket);
                     }
 

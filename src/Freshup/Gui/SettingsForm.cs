@@ -97,7 +97,10 @@ public partial class SettingsForm : Form
 
     private void _ticketApp_ExceptionThrown(object sender, Exception ex)
     {
-        MessageBox.Show("Freshup exception: " + ex.Message, "Fresup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        if(MessageBox.Show("Freshup exception: " + ex.Message + "\n\nClick yes to copy the stack trace to your clipboard.", "Fresup", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error) == DialogResult.Yes)
+        {
+            Clipboard.SetText(ex.StackTrace);
+        } 
     }
 
     private void _ticketApp_NewTicket(object sender, ITicket ticket)
