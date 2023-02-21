@@ -10,7 +10,7 @@ public class FreshdeskTicket : ITicket
     public string? Description => Ticket?.Description;
     public string? SenderEmail => Ticket?.Email;
     public string? SenderName => Ticket?.Name;
-    public Uri? Link => new Uri($"{_freshdeskDomain}/a/tickets/{Ticket.Id}");
+    public Uri? Link => new Uri($"https://{_freshdeskDomain}/a/tickets/{Ticket.Id}");
 
     private readonly string _freshdeskDomain;
 
