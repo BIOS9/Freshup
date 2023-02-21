@@ -8,27 +8,43 @@ namespace Freshup;
 public class Program
 {
     [STAThread]
-    static void Main(string[] args)
-    {
-        CheckUpdates();
-        ApplicationConfiguration.Initialize();
-        Application.Run(new SettingsForm());
-    }
-
-    #region UPDATES
-
-    private static void CheckUpdates()
+    static async Task Main(string[] args)
     {
         SquirrelAwareApp.HandleEvents(
             onInitialInstall: OnAppInstall,
             onAppUninstall: OnAppUninstall,
             onEveryRun: OnAppRun);
 
+        await CheckUpdates();
+        ApplicationConfiguration.Initialize();
+        Application.Run(new SettingsForm());
+    }
+
+    #region UPDATES
+
+    private static async void DoUpdateLoop()
+    {
+        while(true)
+        {
+            try
+            {
+                await Task.Delay(TimeSpan.FromHours(1));
+                await CheckUpdates();
+            }
+            catch
+            {
+                await Task.Delay(TimeSpan.FromHours(2));
+            }
+        }
+    }
+
+    private static async Task CheckUpdates()
+    {
         using (var mgr = new UpdateManager(new GithubSource("https://github.com/BIOS9/Freshup", string.Empty, false)))
         {
             if (mgr.IsInstalledApp)
             {
-                var newVersion = mgr.UpdateApp().Result;
+                var newVersion = await mgr.UpdateApp();
 
                 if (newVersion != null)
                 {
