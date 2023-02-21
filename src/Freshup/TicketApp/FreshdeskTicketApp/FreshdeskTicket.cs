@@ -1,10 +1,11 @@
-﻿using Freshup.TicketApp;
+﻿using DBA.FreshdeskSharp.Models;
+using Freshup.TicketApp;
 
 namespace Freshup.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicket : ITicket
 {
-    public DBA.FreshdeskSharp.Models.FreshdeskTicket Ticket { get; }
+    public DBA.FreshdeskSharp.Models.FreshdeskTicket<FreshdeskCustomFields> Ticket { get; }
     public string? Subject => Ticket?.Subject;
     public string? Description => Ticket?.Description;
     public string? SenderEmail => Ticket?.Email;
@@ -13,7 +14,7 @@ public class FreshdeskTicket : ITicket
 
     private readonly string _freshdeskDomain;
 
-    public FreshdeskTicket(DBA.FreshdeskSharp.Models.FreshdeskTicket ticket, string freshdeskDomain)
+    public FreshdeskTicket(DBA.FreshdeskSharp.Models.FreshdeskTicket<FreshdeskCustomFields> ticket, string freshdeskDomain)
     {
         _freshdeskDomain = freshdeskDomain ?? throw new ArgumentException(nameof(freshdeskDomain));
         Ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));

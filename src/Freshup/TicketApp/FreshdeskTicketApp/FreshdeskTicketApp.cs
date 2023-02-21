@@ -7,7 +7,8 @@ namespace Freshup.TicketApp.FreshdeskTicketApp;
 public class FreshdeskTicketApp : ITicketApp
 {
     public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromSeconds(5);
-    public static readonly Regex DomainRegex = new Regex(@"^https:\/\/.+$", RegexOptions.IgnoreCase);
+    //public static readonly Regex DomainRegex = new Regex(@"^https:\/\/.+$", RegexOptions.IgnoreCase);
+    public static readonly Regex DomainRegex = new Regex(@"^[a-z0-9\-]+\.freshdesk.com$", RegexOptions.IgnoreCase);
     public static readonly Regex ApiKeyRegex = new Regex(@"^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
 
     private readonly string _domain;
@@ -99,7 +100,7 @@ public class FreshdeskTicketApp : ITicketApp
                 };
 
                 var tickets = await _freshdeskClient.Tickets.GetListAsync(listOptions);
-                foreach (DBA.FreshdeskSharp.Models.FreshdeskTicket ticket in tickets)
+                foreach (var ticket in tickets)
                 {
                     var hashableTicket = new TicketApp.FreshdeskTicketApp.FreshdeskTicket(ticket, _domain);
 
