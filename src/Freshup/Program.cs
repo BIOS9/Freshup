@@ -17,6 +17,7 @@ public class Program
             onEveryRun: OnAppRun);
 
         await CheckUpdates();
+        DoUpdateLoop();
         ApplicationConfiguration.Initialize();
         Application.Run(new SettingsForm());
     }
