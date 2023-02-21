@@ -6,10 +6,11 @@ namespace Freshup.TicketApp.FreshdeskTicketApp;
 public class FreshdeskTicket : ITicket
 {
     public DBA.FreshdeskSharp.Models.FreshdeskTicket<FreshdeskCustomFields> Ticket { get; }
+    public FreshdeskContact<FreshdeskCustomFields> Contact { get; private set; }
     public string? Subject => Ticket?.Subject;
     public string? Description => Ticket?.Description;
-    public string? SenderEmail => Ticket?.Email;
-    public string? SenderName => Ticket?.Name;
+    public string? SenderEmail => Contact?.Email;
+    public string? SenderName => Contact?.Name;
     public Uri? Link => new Uri($"https://{_freshdeskDomain}/a/tickets/{Ticket.Id}");
 
     private readonly string _freshdeskDomain;
@@ -18,6 +19,13 @@ public class FreshdeskTicket : ITicket
     {
         _freshdeskDomain = freshdeskDomain ?? throw new ArgumentException(nameof(freshdeskDomain));
         Ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));
+    }
+
+    public FreshdeskTicket WithContact(FreshdeskContact<FreshdeskCustomFields> contact)
+    {
+        FreshdeskTicket t = new FreshdeskTicket(Ticket, _freshdeskDomain);
+        t.Contact = contact;
+        return t;
     }
 
     public override bool Equals(object? obj)
