@@ -79,14 +79,6 @@ public class FreshdeskTicketApp : ITicketApp
         {
             try
             {
-                /* A note on this delay:
-                 * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
-                 * since it waits for the download and then waits for another interval.
-                 *
-                 * This can be changed later if needed.
-                 */
-                await Task.Delay(_pollingInterval, cancellationToken);
-
                 var existingTickets = _tickets; // Defensive reference
                 var newTickets = new HashSet<FreshdeskTicket>();
 
@@ -141,6 +133,16 @@ public class FreshdeskTicketApp : ITicketApp
             {
                 ExceptionThrown?.Invoke(this, ex);
                 await Task.Delay(TimeSpan.FromMinutes(10), cancellationToken);
+            }
+            finally
+            {
+                /* A note on this delay:
+                 * This technically means the loop does not run using the interval specified in the settings, but with interval + download time
+                 * since it waits for the download and then waits for another interval.
+                 *
+                 * This can be changed later if needed.
+                 */
+                await Task.Delay(_pollingInterval, cancellationToken);
             }
         }
     }
