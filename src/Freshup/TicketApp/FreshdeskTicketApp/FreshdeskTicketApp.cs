@@ -1,7 +1,5 @@
-﻿using FreshdeskApi.Client;
-using FreshdeskApi.Client.Me;
-using FreshdeskApi.Client.Tickets.Models;
-using FreshdeskApi.Client.Tickets.Requests;
+﻿using DBA.FreshdeskSharp;
+using DBA.FreshdeskSharp.Models;
 using System.Text.RegularExpressions;
 
 namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
@@ -15,7 +13,6 @@ public class FreshdeskTicketApp : ITicketApp
     private readonly string _domain;
     private readonly string _apiKey;
     private readonly TimeSpan _pollingInterval;
-    private readonly FreshdeskHttpClient _httpClient;
     private readonly FreshdeskClient _freshdeskClient;
     private readonly CancellationTokenSource _pollingTokenSource = new();
     private HashSet<FreshdeskTicket> _tickets = new();
@@ -41,8 +38,14 @@ public class FreshdeskTicketApp : ITicketApp
         if (_pollingInterval < MinimumTicketPollInterval)
             throw new ArgumentException($"TicketPollInterval is too small. Minimum is: {MinimumTicketPollInterval.TotalSeconds}s");
 
-        _httpClient = FreshdeskHttpClient.Create(_domain, _apiKey);
-        _freshdeskClient = FreshdeskClient.Create(_httpClient);
+        var credentials = new FreshdeskCredentials(apiKey);
+        var config = new FreshdeskConfig
+        {
+            Domain = domain,
+            Credentials = credentials,
+            RetryWhenThrottled = false
+        };
+        _freshdeskClient = new FreshdeskClient(config);
     }
 
     public void Start()
@@ -86,27 +89,34 @@ public class FreshdeskTicketApp : ITicketApp
                 var existingTickets = _tickets; // Defensive reference
                 var newTickets = new HashSet<FreshdeskTicket>();
 
-                await foreach (var ticket in _freshdeskClient.Tickets.ListAllTicketsAsync(
-                                   new ListAllTicketsRequest(),
-                                   new PaginationConfiguration(),
-                                   cancellationToken))
+                var listOptions = new FreshdeskTicketListOptions()
                 {
-                    var hashableTicket = new FreshdeskTicket(ticket, _domain);
+                    Filter = FreshdeskTicketFilter.NewAndMyOpen,
+                    OrderType = FreshdeskOrderType.Desc,
+                    OrderBy = FreshdeskTicketOrderBy.CreatedAt,
+                    Page = 1,
+                    PerPage = 10
+                };
+
+                var tickets = await _freshdeskClient.Tickets.GetListAsync(listOptions);
+                foreach (DBA.FreshdeskSharp.Models.FreshdeskTicket ticket in tickets)
+                {
+                    var hashableTicket = new Freshup.Services.TicketApp.FreshdeskTicketApp.FreshdeskTicket(ticket, _domain);
 
                     if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {
-                        try
-                        {
-                            //var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
-                            var contact = await _freshdeskClient.Contacts.ViewContactAsync(ticket.RequesterId);
-                            ticket.Requester = new Requester();
-                            ticket.Requester.Name = contact.Name;
-                            ticket.Requester.Email = contact.Email;
-                        }
-                        catch(Exception ex)
-                        {
-                            // Ignore for now, need to fix
-                        }
+                        //try
+                        //{
+                        //    //var newTicket = new FreshdeskTicket(await _freshdeskClient.Tickets.ViewTicketAsync(hashableTicket.Ticket.Id));
+                        //    var contact = await _freshdeskClient.Contacts.ViewContactAsync(ticket.RequesterId);
+                        //    ticket.Requester = new Requester();
+                        //    ticket.Requester.Name = contact.Name;
+                        //    ticket.Requester.Email = contact.Email;
+                        //}
+                        //catch(Exception ex)
+                        //{
+                        //    // Ignore for now, need to fix
+                        //}
                         NewTicket?.Invoke(this, hashableTicket);
                     }
 
@@ -145,6 +155,6 @@ public class FreshdeskTicketApp : ITicketApp
 
     public void Dispose()
     {
-        _httpClient.Dispose();
+        _freshdeskClient.Dispose();
     }
 }

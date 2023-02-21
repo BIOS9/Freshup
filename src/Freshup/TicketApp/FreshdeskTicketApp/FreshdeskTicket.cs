@@ -1,20 +1,19 @@
-﻿using FreshdeskApi.Client.Tickets.Models;
-using Freshup.Services.TicketApp;
+﻿using Freshup.Services.TicketApp;
 
 namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicket : ITicket
 {
-    public Ticket Ticket { get; }
+    public DBA.FreshdeskSharp.Models.FreshdeskTicket Ticket { get; }
     public string? Subject => Ticket?.Subject;
     public string? Description => Ticket?.Description;
-    public string? SenderEmail => Ticket?.Requester?.Email;
-    public string? SenderName => Ticket?.Requester?.Name;
+    public string? SenderEmail => Ticket?.Email;
+    public string? SenderName => Ticket?.Name;
     public Uri? Link => new Uri($"{_freshdeskDomain}/a/tickets/{Ticket.Id}");
 
     private readonly string _freshdeskDomain;
 
-    public FreshdeskTicket(Ticket ticket, string freshdeskDomain)
+    public FreshdeskTicket(DBA.FreshdeskSharp.Models.FreshdeskTicket ticket, string freshdeskDomain)
     {
         _freshdeskDomain = freshdeskDomain ?? throw new ArgumentException(nameof(freshdeskDomain));
         Ticket = ticket ?? throw new ArgumentNullException(nameof(ticket));
