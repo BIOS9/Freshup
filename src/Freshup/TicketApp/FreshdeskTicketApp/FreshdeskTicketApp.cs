@@ -88,7 +88,7 @@ public class FreshdeskTicketApp : ITicketApp
                     OrderType = FreshdeskOrderType.Desc,
                     OrderBy = FreshdeskTicketOrderBy.CreatedAt,
                     Page = 1,
-                    PerPage = 10
+                    PerPage = firstRun ? 100u : 10u
                 };
 
                 var tickets = await _freshdeskClient.Tickets.GetListAsync(listOptions);
