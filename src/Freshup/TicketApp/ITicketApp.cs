@@ -1,4 +1,4 @@
-﻿namespace Freshup.Services.TicketApp;
+﻿namespace Freshup.TicketApp;
 
 public interface ITicketApp : IDisposable
 {

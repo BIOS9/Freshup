@@ -2,7 +2,7 @@
 using DBA.FreshdeskSharp.Models;
 using System.Text.RegularExpressions;
 
-namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
+namespace Freshup.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
@@ -101,7 +101,7 @@ public class FreshdeskTicketApp : ITicketApp
                 var tickets = await _freshdeskClient.Tickets.GetListAsync(listOptions);
                 foreach (DBA.FreshdeskSharp.Models.FreshdeskTicket ticket in tickets)
                 {
-                    var hashableTicket = new Freshup.Services.TicketApp.FreshdeskTicketApp.FreshdeskTicket(ticket, _domain);
+                    var hashableTicket = new TicketApp.FreshdeskTicketApp.FreshdeskTicket(ticket, _domain);
 
                     if (!firstRun && !existingTickets.Contains(hashableTicket))
                     {
@@ -135,7 +135,7 @@ public class FreshdeskTicketApp : ITicketApp
                 _tickets = newTickets;
                 firstRun = false;
             }
-            catch(TaskCanceledException ex) { }
+            catch (TaskCanceledException ex) { }
             catch (Exception ex)
             {
                 ExceptionThrown?.Invoke(this, ex);

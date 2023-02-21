@@ -1,5 +1,5 @@
 ﻿using Freshup.Services.Gui.Controls;
-using Freshup.Services.TicketApp;
+using Freshup.TicketApp;
 using System.Media;
 
 namespace Freshup.Services.Gui

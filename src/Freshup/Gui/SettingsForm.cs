@@ -1,6 +1,6 @@
 ﻿using Freshup.Services.Gui;
-using Freshup.Services.TicketApp;
-using Freshup.Services.TicketApp.FreshdeskTicketApp;
+using Freshup.TicketApp.FreshdeskTicketApp;
+using Freshup.TicketApp;
 
 namespace Freshup.Services.Testing;
 

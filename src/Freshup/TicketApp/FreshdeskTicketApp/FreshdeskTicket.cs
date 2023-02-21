@@ -1,6 +1,6 @@
-﻿using Freshup.Services.TicketApp;
+﻿using Freshup.TicketApp;
 
-namespace Freshup.Services.TicketApp.FreshdeskTicketApp;
+namespace Freshup.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicket : ITicket
 {

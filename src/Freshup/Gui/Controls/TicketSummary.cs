@@ -1,4 +1,4 @@
-﻿using Freshup.Services.TicketApp;
+﻿using Freshup.TicketApp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
