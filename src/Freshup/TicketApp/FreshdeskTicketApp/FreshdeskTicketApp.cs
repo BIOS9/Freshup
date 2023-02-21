@@ -31,7 +31,7 @@ public class FreshdeskTicketApp : ITicketApp
         _pollingInterval = pollingInterval;
 
         if (!DomainRegex.IsMatch(_domain))
-            throw new ArgumentException("Freshdesk domain invalid. Ensure it starts with https://");
+            throw new ArgumentException("Freshdesk domain invalid.\n\n The domain should be in the format \"domain.freshdesk.com\"\nIt should not contain any slashes.");
 
         if (!ApiKeyRegex.IsMatch(_apiKey))
             throw new ArgumentException("Invalid Freshdesk API key");
