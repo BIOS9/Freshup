@@ -50,6 +50,7 @@ namespace Freshup.Services.Gui.Controls
                     MessageBox.Show("Failed to open link: " + ex.Message, "Freshup", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            Parent.Controls.Remove(this);
         }
     }
 }
