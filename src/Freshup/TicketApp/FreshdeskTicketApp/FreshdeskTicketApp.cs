@@ -6,7 +6,7 @@ namespace Freshup.TicketApp.FreshdeskTicketApp;
 
 public class FreshdeskTicketApp : ITicketApp
 {
-    public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromSeconds(5);
+    public static readonly TimeSpan MinimumTicketPollInterval = TimeSpan.FromSeconds(10);
     //public static readonly Regex DomainRegex = new Regex(@"^https:\/\/.+$", RegexOptions.IgnoreCase);
     public static readonly Regex DomainRegex = new Regex(@"^[a-z0-9\-]+\.freshdesk.com$", RegexOptions.IgnoreCase);
     public static readonly Regex ApiKeyRegex = new Regex(@"^[a-z0-9]{16,}$", RegexOptions.IgnoreCase);
