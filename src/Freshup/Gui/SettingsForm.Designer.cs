@@ -43,6 +43,7 @@ partial class SettingsForm
             this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,20 +100,22 @@ partial class SettingsForm
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsMenuItem,
+            this.aboutMenuItem,
             this.exitMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // settingsMenuItem
             // 
             this.settingsMenuItem.Name = "settingsMenuItem";
-            this.settingsMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsMenuItem.Text = "Settings";
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitMenuItem.Text = "Exit";
             // 
             // cancelButton
@@ -124,6 +127,12 @@ partial class SettingsForm
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuItem.Text = "About";
             // 
             // SettingsForm
             // 
@@ -166,4 +175,5 @@ partial class SettingsForm
     private ToolStripMenuItem exitMenuItem;
     private ToolStripMenuItem settingsMenuItem;
     private Button cancelButton;
+    private ToolStripMenuItem aboutMenuItem;
 }

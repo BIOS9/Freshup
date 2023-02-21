@@ -15,6 +15,7 @@ public partial class SettingsForm : Form
         InitializeComponent();
         settingsMenuItem.Click += SettingsMenuItem_Click;
         exitMenuItem.Click += ExitMenuItem_Click;
+        aboutMenuItem.Click += AboutMenuItem_Click;
         notifyIcon1.Icon = Properties.Resources.AppleCan;
     }
 
@@ -55,6 +56,12 @@ public partial class SettingsForm : Form
         Show();
         ShowInTaskbar = true;
         WindowState = FormWindowState.Normal;
+    }
+
+    private void AboutMenuItem_Click(object? sender, EventArgs e)
+    {
+        string verStr = Program.CurrentVersion?.ToString() ?? "Unknown";
+        MessageBox.Show($"Freshup version {verStr}", "About Freshup", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
     private void ExitMenuItem_Click(object? sender, EventArgs e)
@@ -111,5 +118,10 @@ public partial class SettingsForm : Form
     private void cancelButton_Click(object sender, EventArgs e)
     {
         Hide();
+    }
+
+    private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+
     }
 }

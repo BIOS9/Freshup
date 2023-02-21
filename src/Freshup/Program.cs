@@ -1,12 +1,13 @@
 ﻿using Squirrel.Sources;
 using Squirrel;
-using Freshup.Services.Gui;
 using Freshup.Services.Testing;
 
 namespace Freshup;
 
 public class Program
 {
+    public static SemanticVersion CurrentVersion { get; private set; }
+
     [STAThread]
     static async Task Main(string[] args)
     {
@@ -21,7 +22,7 @@ public class Program
     }
 
     #region UPDATES
-
+    
     private static async void DoUpdateLoop()
     {
         while(true)
@@ -66,6 +67,7 @@ public class Program
 
     private static void OnAppRun(SemanticVersion version, IAppTools tools, bool firstRun)
     {
+        CurrentVersion = version;
         tools.SetProcessAppUserModelId();
     }
 
