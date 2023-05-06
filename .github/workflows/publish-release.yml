@@ -30,7 +30,7 @@ jobs:
       run: dotnet publish src/Freshup -c Release --no-build -o Publish
     
     - name: Download Squirrel tools
-      uses: robinraju/release-downloader@v1.7
+      uses: robinraju/release-downloader@v1.8
       with:
         repository: "clowd/Clowd.Squirrel"
         latest: true
